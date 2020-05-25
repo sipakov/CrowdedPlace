@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:iOsSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:resources="clr-namespace:OnlineDemonstrator.MobileClient.Localization;assembly=OnlineDemonstrator.MobileClient"
+             x:Class="OnlineDemonstrator.MobileClient.Views.SettingsPage"
+             iOsSpecific:Page.ModalPresentationStyle="FormSheet">
+
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#f3f2f2">
+            <StackLayout Margin="20,200,20,0" Orientation="Horizontal">
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{x:Static resources:AppResources.PrivacyPolicyLink}"
+                                  TextColor="#4167b2" >
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnPrivacyPolicyButtonClicked" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                            <Span Text="{x:Static x:Environment.NewLine}"/>
+                            <Span Text=" - " 
+                                  TextColor="#565656"/>
+                            <Span Text="{x:Static x:Environment.NewLine}" />
+                            <Span Text="{x:Static resources:AppResources.LicenseLink}" 
+                                  TextColor="#4167b2">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnLicenseButtonClicked" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:OnlineDemonstrator.MobileClient.Localization;assembly=OnlineDemonstrator.MobileClient"
+             xmlns:iOsSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="OnlineDemonstrator.MobileClient.Views.ObjectionableReasonsPage"
+             iOsSpecific:Page.ModalPresentationStyle="FormSheet">
+    <ContentPage.Content>
+            <StackLayout BackgroundColor="#f3f2f2">
+                <StackLayout Margin="20,50,0,0">
+                    <Image Source="close36.png" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCloseButtonClicked" NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+                <Label Text="{x:Static resources:AppResources.CallDoNotWait}"  Margin="10,10,10,10"
+                       TextColor="#565656" />
+                <ListView x:Name="ObjectionableReasonList"
+                          SeparatorVisibility="None"
+                          HasUnevenRows="True"
+                          ItemTapped="OnListViewItemSelected" BackgroundColor="#f3f2f2">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame HasShadow="False" Margin="5,5,5,0" BackgroundColor="White">
+                                    <Grid ColumnSpacing="0" RowSpacing="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <StackLayout>
+                                            <StackLayout>
+                                                <Label Text="{Binding Title}" TextColor="#565656"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Text="{x:Static resources:AppResources.Comment}"
+                        Margin="10,10,10,10" TextColor="#565656"/>
+                <Editor x:Name="EditorCommentReason" MaxLength="250" Margin="10,0,10,20"
+                        AutoSize="TextChanges" Keyboard="Chat" IsSpellCheckEnabled="false" PlaceholderColor="#f3f2f2" BackgroundColor="#f9f6f6" />
+            </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

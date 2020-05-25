@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:OnlineDemonstrator.MobileClient.Localization;assembly=OnlineDemonstrator.MobileClient"
+             x:Class="OnlineDemonstrator.MobileClient.Views.PrivacyPolicyPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#f3f2f2">
+            <StackLayout Margin="20,50,0,0" >
+                <Image Source="close36.png" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCloseButtonClicked" NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout Margin="20,50,20,0">
+                        <Label VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="0,0,0,20"                     
+                               Text="{x:Static resources:AppResources.PrivacyPolicy}" 
+                               TextColor="#565656" HorizontalTextAlignment="Start" LineBreakMode="CharacterWrap"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

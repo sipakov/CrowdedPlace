@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+        <ProductVersion>8.0.30703</ProductVersion>
+        <SchemaVersion>2.0</SchemaVersion>
+        <ProjectGuid>{C9514050-5A1C-47A2-8109-F174340E8FD5}</ProjectGuid>
+        <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>OnlineDemonstrator.MobileClient.iOS</RootNamespace>
+        <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+        <AssemblyName>OnlineDemonstrator.MobileClient.iOS</AssemblyName>
+        <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+        <DefineConstants>DEBUG</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <ConsolePause>false</ConsolePause>
+        <MtouchArch>x86_64</MtouchArch>
+        <MtouchLink>None</MtouchLink>
+        <MtouchDebug>true</MtouchDebug>
+        <CodesignKey>Apple Development: Stanislav  Sipakov (YURTD29T6C)</CodesignKey>
+        <CodesignProvision>VS: WildCard Development</CodesignProvision>
+        <MtouchExtraArgs>--optimize=experimental-xforms-product-type</MtouchExtraArgs>
+        <FirebaseCrashlyticsUploadSymbolsEnabled>true</FirebaseCrashlyticsUploadSymbolsEnabled>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+        <DebugType>none</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <MtouchLink>None</MtouchLink>
+        <MtouchArch>x86_64</MtouchArch>
+        <ConsolePause>false</ConsolePause>
+        <CodesignKey>iPhone Distribution</CodesignKey>
+        <MtouchExtraArgs>--optimize=experimental-xforms-product-type
+</MtouchExtraArgs>
+        <MtouchUseLlvm>true</MtouchUseLlvm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\iPhone\Debug</OutputPath>
+        <DefineConstants>DEBUG</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <ConsolePause>false</ConsolePause>
+        <MtouchArch>ARM64</MtouchArch>
+        <CodesignKey>Apple Development: Stanislav  Sipakov (YURTD29T6C)</CodesignKey>
+        <MtouchDebug>true</MtouchDebug>
+        <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+        <CodesignProvision>VS: WildCard Development</CodesignProvision>
+        <MtouchExtraArgs>--optimize=experimental-xforms-product-type
+</MtouchExtraArgs>
+        <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+        <DebugType>none</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\iPhone\Release</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <MtouchArch>ARM64</MtouchArch>
+        <ConsolePause>false</ConsolePause>
+        <CodesignKey>iPhone Distribution</CodesignKey>
+        <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+        <CodesignProvision>onlineDemonstratorProfile</CodesignProvision>
+        <MtouchExtraArgs>--optimize=experimental-xforms-product-type</MtouchExtraArgs>
+        <MtouchLink>SdkOnly</MtouchLink>
+        <MtouchUseLlvm>true</MtouchUseLlvm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+        <DebugType>none</DebugType>
+        <Optimize>True</Optimize>
+        <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <ConsolePause>False</ConsolePause>
+        <MtouchArch>ARM64</MtouchArch>
+        <BuildIpa>True</BuildIpa>
+        <CodesignProvision>VS: WildCard Development</CodesignProvision>
+        <CodesignKey>Apple Development: Stanislav  Sipakov (YURTD29T6C)</CodesignKey>
+        <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+        <DebugType>none</DebugType>
+        <Optimize>True</Optimize>
+        <OutputPath>bin\iPhone\AppStore</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <ConsolePause>False</ConsolePause>
+        <MtouchArch>ARM64</MtouchArch>
+        <CodesignProvision>VS: WildCard Development</CodesignProvision>
+        <CodesignKey>Apple Development: Stanislav  Sipakov (YURTD29T6C)</CodesignKey>
+        <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Main.cs" />
+        <Compile Include="AppDelegate.cs" />
+        <None Include="Entitlements.plist" />
+        <None Include="Info.plist" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+            <Visible>false</Visible>
+        </ImageAsset>
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\20.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40-1.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\29.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\60.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58-1.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\87.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120-1.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\180.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40-2.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80-1.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\76.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\152.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\167.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120-2.png" />
+        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\180-1.png" />
+        <ImageAsset Include="Assets.xcassets\MyLaunchStreenImage.imageset\Contents.json" />
+        <ImageAsset Include="Assets.xcassets\MyLaunchStreenImage.imageset\circle-cropped.png" />
+        <ImageAsset Include="Assets.xcassets\MyLaunchStreenImage.imageset\circle-cropped-1.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Core" />
+        <Reference Include="Xamarin.iOS" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Xamarin.Essentials">
+          <Version>1.5.3.2</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.Firebase.iOS.Core">
+          <Version>6.6.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.Firebase.iOS.Crashlytics">
+          <Version>3.14.0.3</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.Forms">
+          <Version>4.6.0.726</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.Forms.Maps">
+          <Version>4.6.0.726</Version>
+        </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\OnlineDemonstrator.Libraries.Network\OnlineDemonstrator.Libraries.Network.csproj">
+          <Project>{cb666c49-2824-42ad-be95-3af7c3995d11}</Project>
+          <Name>OnlineDemonstrator.Libraries.Network</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\OnlineDemonstrator.MobileClient\OnlineDemonstrator.MobileClient.csproj">
+            <Project>{7207713A-E43A-47EB-A4FF-AE9C95349623}</Project>
+            <Name>OnlineDemonstrator.MobileClient</Name>
+        </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <BundleResource Include="Resources\close36.png" />
+      <BundleResource Include="Resources\gear.png" />
+      <BundleResource Include="Resources\gear2.png" />
+      <BundleResource Include="Resources\map.png" />
+      <BundleResource Include="Resources\plus.png" />
+      <BundleResource Include="Resources\settings.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <ITunesArtwork Include="iTunesArtwork%402x" />
+      <ITunesArtwork Include="iTunesArtwork" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Assets.xcassets\MyLaunchStreenImage.imageset\" />
+    </ItemGroup>
+    <ItemGroup>
+      <BundleResource Include="GoogleService-Info.plist" />
+    </ItemGroup>
+    <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>
