@@ -18,5 +18,7 @@ namespace OnlineDemonstrator.Libraries.Domain.Dto
         public int PostersCount { get; set; }
 
         public string ExpDays { get; set; }
+
+        public bool IsExpired { get; set; }
     }
 }

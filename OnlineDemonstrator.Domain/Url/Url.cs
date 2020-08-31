@@ -12,5 +12,8 @@ namespace OnlineDemonstrator.Libraries.Domain.Url
         public static string AddDevice = $"{BaseUrl}device/add";
         public static string GetPosterById = $"{BaseUrl}poster/getPosterById";
         public static string AddObjectionableReason = $"{BaseUrl}objectionableReason/add";
+        public static string AddPosterToExistDemonstration = $"{BaseUrl}poster/addToExistDemonstration";
+        public static string AddPosterToExpiredDemonstration = $"{BaseUrl}poster/addToExpiredDemonstration";
+
     }
 }

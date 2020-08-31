@@ -130,21 +130,30 @@ namespace OnlineDemonstrator.MobileClient.Views
             var geocodeAddressCity = string.Empty;
             var geocodeAddressArea = string.Empty;
             List<Placemark> locationInfos = new List<Placemark>();
-            Device.BeginInvokeOnMainThread(async () =>
+          
+            try
             {
-                locationInfos = (await Geocoding.GetPlacemarksAsync(e.Position.Latitude, e.Position.Longitude).ConfigureAwait(true)).ToList();
-            });
-                
-                var locationInfo = locationInfos?.FirstOrDefault();
+                locationInfos =
+                    (await Geocoding.GetPlacemarksAsync(e.Position.Latitude, e.Position.Longitude).ConfigureAwait(true))
+                    .ToList();
+            }
+            catch (Exception exception)
+            {
+                locationInfos =
+                    (await Geocoding.GetPlacemarksAsync(e.Position.Latitude, e.Position.Longitude).ConfigureAwait(true))
+                    .ToList();
+            }
+            
+            var locationInfo = locationInfos?.FirstOrDefault();
 
-                if (locationInfo != null)
-                {
-                    geocodeAddressCountry = $"{locationInfo.CountryName}";
-                    geocodeAddressCity = $"{locationInfo.Locality}";
-                    geocodeAddressArea = $"{locationInfo.FeatureName}"; 
-                }
+            if (locationInfo != null)
+            {
+                geocodeAddressCountry = $"{locationInfo.CountryName}";
+                geocodeAddressCity = $"{locationInfo.Locality}";
+                geocodeAddressArea = $"{locationInfo.FeatureName}";
+            }
 
-                await Navigation.PushModalAsync(
+            await Navigation.PushModalAsync(
                 new PosterCreatorPage(e.Position.Latitude, e.Position.Longitude, geocodeAddressCountry,
                     geocodeAddressCity, geocodeAddressArea, _deviceId), true);
         }

@@ -29,14 +29,15 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             var currentDate = DateTime.UtcNow.Date;
             var actualDate = currentDate.AddDays(-expDay);
 
-            var actualDemonstrations = await context.Demonstrations.AsNoTracking().Where(x=>x.DemonstrationDate >= actualDate).Select(x=> new DemonstrationOut()
+            var actualDemonstrations = await context.Demonstrations.AsNoTracking().Where(x=>!x.IsDeleted).Select(x=> new DemonstrationOut()
             {
                 Id = x.Id,
                 DemonstrationDate = x.DemonstrationDate,
                 Latitude = x.Latitude,
                 Longitude = x.Longitude,
                 CountryName = x.CountryName,
-                DetailName = $"{x.CityName}, {x.AreaName}"
+                DetailName = $"{x.CityName}, {x.AreaName}",
+                IsExpired = (x.DemonstrationDate - actualDate).Days > expDay
             }).ToListAsync();
 
             return actualDemonstrations;
@@ -54,8 +55,8 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 Latitude = latitude,
                 Longitude = longitude,
                 CountryName = countryName,
-                CityName = cityName,
-                AreaName = areaName
+                CityName = string.IsNullOrEmpty(cityName) ? latitude.ToString() : cityName,
+                AreaName = string.IsNullOrEmpty(areaName) ? longitude.ToString() : areaName
             };
 
             var demonstrationEntity = await context.Demonstrations.AddAsync(newDemonstration);
@@ -75,7 +76,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             var actualDate = currentDate.AddDays(-expDay);
 
             var actualDemonstrations = await context.Demonstrations.AsNoTracking()
-                .Where(x => x.DemonstrationDate >= actualDate).ToListAsync();
+                .Where(x => x.DemonstrationDate >= actualDate && !x.IsDeleted).ToListAsync();
              
             var targetDemonstration = new DemonstrationOut();
             var sortedList = new SortedList<double, Demonstration>();
@@ -92,7 +93,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             if (nearestDemonstration.Key > pointsIn.RadiusForLookingDemo) return targetDemonstration;
 
             var postersCount = context.Posters
-                .AsNoTracking().Count(x => x.DemonstrationId == nearestDemonstration.Value.Id);
+                .AsNoTracking().Count(x => x.DemonstrationId == nearestDemonstration.Value.Id && !x.IsDeleted);
 
             targetDemonstration.Id = nearestDemonstration.Value.Id;
             targetDemonstration.Latitude = nearestDemonstration.Value.Latitude;

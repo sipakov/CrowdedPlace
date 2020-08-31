@@ -23,15 +23,15 @@
 	<key>MinimumOSVersion</key>
 	<string>13.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>OnlineDemonstrator</string>
+	<string>Online Demonstrator</string>
 	<key>CFBundleIdentifier</key>
 	<string>ru.onlinedemonstrator</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.19</string>
+	<string>1.0.22</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
-	<string>OnlineDemonstrator</string>
+	<string>Online Demonstrator</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -51,6 +51,6 @@
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.19</string>
+	<string>1.0.22</string>
 </dict>
 </plist>

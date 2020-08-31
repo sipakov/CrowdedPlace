@@ -62,7 +62,7 @@ namespace OnlineDemonstrator.MobileClient.Views
             switch (baseResult.Result)
             {
                 case StatusCode.Ok:
-                    await DisplayAlert(AppResources.Notification, AppResources.PosterAddedSuccessfully, AppResources.Ok);
+                    await Navigation.PopModalAsync(true);
                     break;
                 default:
                     await DisplayAlert(AppResources.Notification, baseResult.Message, AppResources.Ok);
@@ -80,19 +80,10 @@ namespace OnlineDemonstrator.MobileClient.Views
                 return;
             }
 
-            var isValidTextForPattern = ValidateMessageTitleNameForPattern();
-            
-            if (!isValidTextForPattern)
-            {
-                await DisplayAlert(AppResources.Notification, AppResources.ForbiddenSymbols, AppResources.Ok);
-                return;
-            }
-            
             var name = NameEditor.Text;
             var title = TitleEditor.Text;
             var message = MessageEditor.Text;
             await AddPoster(_latitude, _longitude, _geocodeAddressCountry, _geocodeAddressCity, _geocodeAddressArea, name, title, message, _deviceId);
-            await Navigation.PopModalAsync(true);
         }
         
         private bool ValidateMessageTitle()
@@ -100,13 +91,6 @@ namespace OnlineDemonstrator.MobileClient.Views
             return !string.IsNullOrEmpty(MessageEditor.Text) && !string.IsNullOrEmpty(TitleEditor.Text);
         }
 
-        private bool ValidateMessageTitleNameForPattern()
-        {
-            if (string.IsNullOrEmpty(NameEditor.Text)) return true;
-            var isValidName = Regex.IsMatch(MessageEditor.Text, PatternToValidateMessageTitle);
-            return isValidName;
-        }
-        
         private async void OnCloseButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync(true);
@@ -116,7 +100,7 @@ namespace OnlineDemonstrator.MobileClient.Views
         {
             base.OnDisappearing();
             MessagingCenter.Send<object> (this, "ReloadPosters");
-            Navigation.PopModalAsync(true);
+            //Navigation.PopModalAsync(true);
         }
     }
 }

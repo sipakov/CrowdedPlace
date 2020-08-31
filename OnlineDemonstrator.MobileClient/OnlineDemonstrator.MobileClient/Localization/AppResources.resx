@@ -139,7 +139,7 @@ You agree that Stanislav Sipakov may collect and use information gathered in any
     <value>Enter comment here</value>
     </data>
     <data name="PrivacyDisplayMessage" xml:space="preserve">
-    <value>To add your first poster, simply tap the map or click the Add button. The application does not specifically determine your location to exclude the collection of any personal information.</value>
+    <value>To add your first poster, go to the desired location then simply tap the map. The application does not specifically determine your location to exclude the collection of any personal information.</value>
     </data>
     <data name="DearUsers" xml:space="preserve">
     <value>Dear Users</value>

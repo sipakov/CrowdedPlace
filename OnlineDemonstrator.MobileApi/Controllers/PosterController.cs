@@ -53,6 +53,26 @@ namespace OnlineDemonstrator.MobileApi.Controllers
             return await _posterService.GetPosterById(posterOut.DeviceId, posterOut.CreatedDate);
         }
         
+        [HttpPost("addToExistDemonstration")]
+        public async Task<ActionResult<Poster>> AddToExistDemonstrationAsync([FromBody, BindRequired] PosterIn posterIn)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            
+            var currentDateTime = DateTime.UtcNow; 
+
+            return await _posterService.AddPosterToExistDemonstrationAsync(posterIn, currentDateTime);
+        }
+        
+        [HttpPost("addToExpiredDemonstration")]
+        public async Task<ActionResult<Poster>> AddToExpiredDemonstrationAsync([FromBody, BindRequired] PosterIn posterIn)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            
+            var currentDateTime = DateTime.UtcNow; 
+
+            return await _posterService.AddPosterAsync(posterIn, currentDateTime);
+        }
+        
         
         
         [HttpGet("test")]

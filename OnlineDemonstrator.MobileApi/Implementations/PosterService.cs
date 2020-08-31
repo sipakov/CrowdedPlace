@@ -19,7 +19,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
         private readonly IContextFactory<ApplicationContext> _contextFactory;
         private readonly IDemonstrationService _demonstrationService;
         private readonly IDistanceCalculator _distanceCalculator;
-        private const int DemonstrationDistanceInKilometers = 3;
+        private const int DemonstrationDistanceInKilometers = 1;
         private readonly IStringLocalizer<AppResources> _stringLocalizer;
 
         public PosterService(IContextFactory<ApplicationContext> contextFactory,
@@ -43,7 +43,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             try
             {
                 var actualDemonstrations = await _demonstrationService.GetActualDemonstrations(context);
-
+    
                 Poster newPoster = null;
 
                 foreach (var actualDemonstration in actualDemonstrations)
@@ -88,13 +88,13 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 var device = await context.Devices.AsNoTracking().FirstOrDefaultAsync(x => x.Id == posterIn.DeviceId);
                 if (device == null) throw new ArgumentNullException(nameof(device));
 
-                var activePosterCount = await context.Posters.Where(x =>
-                    x.DeviceId == posterIn.DeviceId && x.CreatedDate > DateTime.UtcNow.Date.AddDays(-7)).CountAsync();
-
-                if (activePosterCount >= 1)
-                {
-                    throw new ValidationException(_stringLocalizer["PosterConstraint"]);
-                }
+                // var activePosterCount = await context.Posters.Where(x =>
+                //     x.DeviceId == posterIn.DeviceId && x.CreatedDate > DateTime.UtcNow.Date.AddDays(-7)).CountAsync();
+                //
+                // if (activePosterCount == 3)
+                // {
+                //     throw new ValidationException(_stringLocalizer["PosterConstraint"]);
+                // }
 
                 var posterEntity = await context.Posters.AddAsync(newPoster);
                 await context.SaveChangesAsync();
@@ -123,7 +123,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
 
             //evaluated locally! Transform to raw sql
             var targetPosters = (await context.Posters.AsNoTracking()
-                    .Where(x => actualDemonstrations.Contains(x.DemonstrationId)).OrderByDescending(x=>x.CreatedDateTime)
+                    .Where(x => actualDemonstrations.Contains(x.DemonstrationId) && !x.IsDeleted).OrderByDescending(x=>x.CreatedDateTime)
                     .ToListAsync())
                 .GroupBy(x => x.DemonstrationId)
                 .Select(x => x.OrderByDescending(y => y.CreatedDate).Take(postersCountInDemonstration))
@@ -147,7 +147,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             await using var context = _contextFactory.CreateContext();
 
             const int messageContentLength = 50;
-            var targetPosters = await context.Posters.AsNoTracking().Where(x => x.DemonstrationId == demonstrationId).OrderByDescending(x=>x.CreatedDateTime).Select(x=> new PosterOut
+            var targetPosters = await context.Posters.AsNoTracking().Where(x => x.DemonstrationId == demonstrationId && !x.IsDeleted).OrderByDescending(x=>x.CreatedDateTime).Select(x=> new PosterOut
                 {
                     DeviceId = x.DeviceId,
                     CreatedDate = x.CreatedDate,
@@ -177,6 +177,68 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             };
 
             return posterOut;
+        }
+
+        public async Task<Poster> AddPosterToExistDemonstrationAsync(PosterIn posterIn, DateTime currentDateTime)
+        {
+            await using var context = _contextFactory.CreateContext();
+
+            var demonstration = await context.Demonstrations.AsNoTracking().FirstOrDefaultAsync(x => x.Id == posterIn.DemonstrationId);
+
+            if (demonstration == null)
+            {
+                return new Poster();
+            }
+            
+            var newPoster = new Poster
+            {
+                Name = posterIn.Name,
+                Title = posterIn.Title,
+                Message = posterIn.Message,
+                Latitude = posterIn.Latitude,
+                Longitude = posterIn.Longitude,
+                DeviceId = posterIn.DeviceId,
+                DemonstrationId = posterIn.DemonstrationId,
+                CreatedDate = demonstration.DemonstrationDate,
+                CreatedDateTime = currentDateTime
+            };
+
+            var posterEntity = await context.Posters.AddAsync(newPoster);
+            await context.SaveChangesAsync();
+
+            return posterEntity.Entity;
+        }
+        
+        public async Task<Poster> AddPosterToExpiredDemonstrationAsync(PosterIn posterIn, DateTime currentDateTime)
+        {
+            await using var context = _contextFactory.CreateContext();
+
+            var demonstration = await context.Demonstrations.FirstOrDefaultAsync(x => x.Id == posterIn.DemonstrationId);
+
+            if (demonstration == null)
+            {
+                return new Poster();
+            }
+
+            demonstration.DemonstrationDate = currentDateTime.Date;
+            
+            var newPoster = new Poster
+            {
+                Name = posterIn.Name,
+                Title = posterIn.Title,
+                Message = posterIn.Message,
+                Latitude = posterIn.Latitude,
+                Longitude = posterIn.Longitude,
+                DeviceId = posterIn.DeviceId,
+                DemonstrationId = posterIn.DemonstrationId,
+                CreatedDate = currentDateTime.Date,
+                CreatedDateTime = currentDateTime
+            };
+
+            var posterEntity = await context.Posters.AddAsync(newPoster);
+            await context.SaveChangesAsync();
+
+            return posterEntity.Entity;
         }
     }
 }

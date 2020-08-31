@@ -65,20 +65,21 @@ namespace OnlineDemonstrator.MobileClient
                 if (isSuccess)
                 {
                     var isValidGuid = Guid.TryParse(deviceIdObj.ToString(), out var currentDeviceId);
-                    if (isValidGuid)
+                    if (isValidGuid && currentDeviceId != Guid.Empty)
                     {
                         targetDeviceId = currentDeviceId;
                     }
                     else
                     {
                         targetDeviceId = Guid.NewGuid();
-                        Xamarin.Forms.Application.Current.Properties.Add("deviceIdOnlineDemonstrator", deviceId);
+                        Xamarin.Forms.Application.Current.Properties.Remove("deviceIdOnlineDemonstrator");
+                        Xamarin.Forms.Application.Current.Properties.Add("deviceIdOnlineDemonstrator", targetDeviceId);
                     }
                 }
                 else
                 {
                     targetDeviceId = Guid.NewGuid();
-                    Xamarin.Forms.Application.Current.Properties.Add("deviceIdOnlineDemonstrator", deviceId);
+                    Xamarin.Forms.Application.Current.Properties.Add("deviceIdOnlineDemonstrator", targetDeviceId);
                 }     
                 
             return targetDeviceId;

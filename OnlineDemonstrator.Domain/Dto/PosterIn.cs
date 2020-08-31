@@ -18,5 +18,7 @@ namespace OnlineDemonstrator.Libraries.Domain.Dto
         public string CountryName { get; set; }
         public string AreaName { get; set; }
         public Guid DeviceId { get; set; }
+
+        public int DemonstrationId { get; set; }
     }
 }

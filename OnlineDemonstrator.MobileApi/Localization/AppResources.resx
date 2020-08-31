@@ -25,6 +25,6 @@
     <value>Report is already a complaint</value>
     </data>
     <data name="PosterConstraint" xml:space="preserve">
-    <value>You cannot add a banner until your previous demo is over</value>
+    <value>You cannot add more then one active banner</value>
     </data>
 </root>
