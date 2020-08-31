@@ -37,7 +37,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 Longitude = x.Longitude,
                 CountryName = x.CountryName,
                 DetailName = $"{x.CityName}, {x.AreaName}",
-                IsExpired = (x.DemonstrationDate - actualDate).Days > expDay
+                IsExpired = (actualDate - x.DemonstrationDate).Days > expDay
             }).ToListAsync();
 
             return actualDemonstrations;
