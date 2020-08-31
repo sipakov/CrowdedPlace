@@ -29,7 +29,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             var currentDate = DateTime.UtcNow.Date;
             var actualDate = currentDate.AddDays(-expDay);
 
-            var actualDemonstrations = await context.Demonstrations.AsNoTracking().Where(x=>!x.IsDeleted).Select(x=> new DemonstrationOut()
+            var actualDemonstrations = await context.Demonstrations.AsNoTracking().Where(x=>!x.IsDeleted).OrderByDescending(x=>x.DemonstrationDate).Select(x=> new DemonstrationOut()
             {
                 Id = x.Id,
                 DemonstrationDate = x.DemonstrationDate,
