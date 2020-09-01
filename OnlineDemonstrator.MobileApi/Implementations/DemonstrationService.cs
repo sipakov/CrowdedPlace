@@ -40,7 +40,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 Longitude = x.Longitude,
                 CountryName = x.CountryName,
                 DetailName = $"{x.CityName}, {x.AreaName}",
-                IsExpired = (actualDate - x.DemonstrationDate).Days > expDay,
+                IsExpired =  x.DemonstrationDate < actualDate,
                 PostersCount = demonstrationToPosterCount[x.Id]
             }).ToListAsync();
 
@@ -107,6 +107,33 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             targetDemonstration.PostersCount = postersCount;
             
             return targetDemonstration;
+        }
+
+        public async Task<DemonstrationCountOut> GetDemonstrationCount()
+        {
+            await using var contextActual = _contextFactory.CreateContext();
+
+            await using var contextExpired = _contextFactory.CreateContext();
+
+            const int expDay = 7;
+            var currentDate = DateTime.UtcNow.Date;
+            var actualDate = currentDate.AddDays(-expDay);
+
+            var actualCountTask = contextActual.Demonstrations.AsNoTracking()
+                .CountAsync(x => !x.IsDeleted && x.DemonstrationDate >= actualDate);
+            
+            var expiredCountTask = contextExpired.Demonstrations.AsNoTracking()
+                .CountAsync(x => !x.IsDeleted && x.DemonstrationDate < actualDate);
+            
+            await Task.WhenAll(actualCountTask, expiredCountTask);
+            
+            var demonstrationCountOut = new DemonstrationCountOut
+            {
+                ActualCount = await actualCountTask,
+                ExpiredCount = await expiredCountTask
+            };
+
+            return demonstrationCountOut;
         }
     }
 }

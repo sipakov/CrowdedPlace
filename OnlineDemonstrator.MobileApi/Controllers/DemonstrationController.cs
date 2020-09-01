@@ -35,5 +35,13 @@ namespace OnlineDemonstrator.MobileApi.Controllers
 
             return await _demonstrationService.GetNearestDemonstration(pointsIn);
         }
+        
+        [HttpGet("getDemonstrationCount")]
+        public async Task<ActionResult<DemonstrationCountOut>> GetDemonstrationCountAsync()
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            return await _demonstrationService.GetDemonstrationCount();
+        }
     }
 }

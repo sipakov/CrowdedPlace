@@ -16,5 +16,7 @@ namespace OnlineDemonstrator.MobileApi.Interfaces
         Task<Demonstration> AddAsync(ApplicationContext context, double latitude, double longitude, DateTime currentDateTime, string countryName, string cityName, string areaName);
 
         Task<DemonstrationOut> GetNearestDemonstration(PointsIn pointsIn);
+        
+        Task<DemonstrationCountOut> GetDemonstrationCount();
     }
 }
