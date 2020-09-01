@@ -29,6 +29,9 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             var currentDate = DateTime.UtcNow.Date;
             var actualDate = currentDate.AddDays(-expDay);
 
+            var demonstrationToPosterCount = await context.Posters.AsNoTracking().GroupBy(x => x.DemonstrationId)
+                .Select(x => new KeyValuePair<int, int>(x.Key, x.Count())).ToDictionaryAsync(x => x.Key, x => x.Value);
+
             var actualDemonstrations = await context.Demonstrations.AsNoTracking().Where(x=>!x.IsDeleted).OrderByDescending(x=>x.DemonstrationDate).Select(x=> new DemonstrationOut()
             {
                 Id = x.Id,
@@ -37,7 +40,8 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 Longitude = x.Longitude,
                 CountryName = x.CountryName,
                 DetailName = $"{x.CityName}, {x.AreaName}",
-                IsExpired = (actualDate - x.DemonstrationDate).Days > expDay
+                IsExpired = (actualDate - x.DemonstrationDate).Days > expDay,
+                PostersCount = demonstrationToPosterCount[x.Id]
             }).ToListAsync();
 
             return actualDemonstrations;
