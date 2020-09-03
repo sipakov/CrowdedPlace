@@ -118,12 +118,13 @@ namespace OnlineDemonstrator.MobileApi.Implementations
         {
             await using var context = _contextFactory.CreateContext();
 
-             var actualDemonstrations = (await _demonstrationService.GetActualDemonstrations(context)).Select(x => x.Id)
-                 .ToList();
+            var actualDemonstrations = (await _demonstrationService.GetActualDemonstrations(context)).ToDictionary(x=> x.Id, y=>y.IsExpired);
+                 
+            var actualDemonstrationIds =   actualDemonstrations.Select(x => x.Key).ToList();
 
             //evaluated locally! Transform to raw sql
             var targetPosters = (await context.Posters.AsNoTracking()
-                    .Where(x => actualDemonstrations.Contains(x.DemonstrationId) && !x.IsDeleted).OrderByDescending(x=>x.CreatedDateTime)
+                    .Where(x => actualDemonstrationIds.Contains(x.DemonstrationId) && !x.IsDeleted).OrderByDescending(x=>x.CreatedDateTime)
                     .ToListAsync())
                 .GroupBy(x => x.DemonstrationId)
                 .Select(x => x.OrderByDescending(y => y.CreatedDate).Take(postersCountInDemonstration))
@@ -136,7 +137,8 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                     Latitude = x.Latitude,
                     Longitude = x.Longitude,
                     CreatedDate = x.CreatedDate,
-                    CreatedDateTime = x.CreatedDateTime
+                    CreatedDateTime = x.CreatedDateTime,
+                    IsExpired = actualDemonstrations[x.DemonstrationId]
                 }).ToList();
 
             return targetPosters;
@@ -195,8 +197,8 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 Name = posterIn.Name,
                 Title = posterIn.Title,
                 Message = posterIn.Message,
-                Latitude = posterIn.Latitude,
-                Longitude = posterIn.Longitude,
+                Latitude = posterIn.Latitude == default ? demonstration.Latitude : posterIn.Latitude,
+                Longitude = posterIn.Longitude == default ? demonstration.Longitude : posterIn.Longitude,
                 DeviceId = posterIn.DeviceId,
                 DemonstrationId = posterIn.DemonstrationId,
                 CreatedDate = demonstration.DemonstrationDate,
@@ -227,8 +229,8 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 Name = posterIn.Name,
                 Title = posterIn.Title,
                 Message = posterIn.Message,
-                Latitude = posterIn.Latitude,
-                Longitude = posterIn.Longitude,
+                Latitude = posterIn.Latitude == default ? demonstration.Latitude : posterIn.Latitude,
+                Longitude = posterIn.Longitude == default ? demonstration.Longitude : posterIn.Longitude,
                 DeviceId = posterIn.DeviceId,
                 DemonstrationId = posterIn.DemonstrationId,
                 CreatedDate = currentDateTime.Date,

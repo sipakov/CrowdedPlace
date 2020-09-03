@@ -23,5 +23,7 @@ namespace OnlineDemonstrator.Libraries.Domain.Dto
         public DateTime CreatedDate { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
+
+        public bool IsExpired { get; set; }
     }
 }
