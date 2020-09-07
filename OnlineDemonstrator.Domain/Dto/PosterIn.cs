@@ -22,5 +22,7 @@ namespace OnlineDemonstrator.Libraries.Domain.Dto
         public int DemonstrationId { get; set; }
 
         public string BaseOs { get; set; }
+
+        public string Locale { get; set; }
     }
 }

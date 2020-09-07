@@ -86,7 +86,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 if (newPoster == null)
                 {
                     var formattedAddress =
-                        await _reverseGeoCodingPlaceGetter.GetAddressByGeoPosition(posterIn.Latitude, posterIn.Longitude);
+                        await _reverseGeoCodingPlaceGetter.GetAddressByGeoPosition(posterIn.Latitude, posterIn.Longitude, posterIn.Locale);
                     
                     var newDemonstration =
                         await _demonstrationService.AddAsync(context, posterIn.Latitude, posterIn.Longitude,

@@ -5,6 +5,6 @@ namespace OnlineDemonstrator.MobileApi.Interfaces
 {
     public interface IReverseGeoCodingPlaceGetter
     {
-        Task<Address> GetAddressByGeoPosition(double latitude, double longitude);
+        Task<Address> GetAddressByGeoPosition(double latitude, double longitude, string locale);
     }
 }

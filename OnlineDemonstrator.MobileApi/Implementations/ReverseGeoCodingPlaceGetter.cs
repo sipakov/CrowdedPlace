@@ -21,11 +21,11 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             _config = config;
         }
         
-        public async Task<Address> GetAddressByGeoPosition(double latitude, double longitude)
+        public async Task<Address> GetAddressByGeoPosition(double latitude, double longitude, string locale)
         {
             var key = _config.GetSection("KeyApiGoogle").Value;
             
-            var url = $"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude.ToString(CultureInfo.InvariantCulture)},{longitude.ToString(CultureInfo.InvariantCulture)}&key={key}";
+            var url = $"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude.ToString(CultureInfo.InvariantCulture)},{longitude.ToString(CultureInfo.InvariantCulture)}&key={key}&language={locale}";
             
             var request = WebRequest.Create(url);
             var response = await request.GetResponseAsync();
