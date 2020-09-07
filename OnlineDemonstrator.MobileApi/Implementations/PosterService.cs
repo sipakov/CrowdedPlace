@@ -8,6 +8,7 @@ using Npgsql;
 using OnlineDemonstrator.EfCli;
 using OnlineDemonstrator.Libraries.Domain.Dto;
 using OnlineDemonstrator.Libraries.Domain.Entities;
+using OnlineDemonstrator.Libraries.Domain.Enums;
 using OnlineDemonstrator.MobileApi.CustomExceptionMiddleware;
 using OnlineDemonstrator.MobileApi.Interfaces;
 using IsolationLevel = System.Data.IsolationLevel;
@@ -21,15 +22,17 @@ namespace OnlineDemonstrator.MobileApi.Implementations
         private readonly IDistanceCalculator _distanceCalculator;
         private const int DemonstrationDistanceInKilometers = 1;
         private readonly IStringLocalizer<AppResources> _stringLocalizer;
+        private readonly IReverseGeoCodingPlaceGetter _reverseGeoCodingPlaceGetter;
 
         public PosterService(IContextFactory<ApplicationContext> contextFactory,
-            IDemonstrationService demonstrationService, IDistanceCalculator distanceCalculator, IStringLocalizer<AppResources> stringLocalizer)
+            IDemonstrationService demonstrationService, IDistanceCalculator distanceCalculator, IStringLocalizer<AppResources> stringLocalizer, IReverseGeoCodingPlaceGetter reverseGeoCodingPlaceGetter)
         {
             _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
             _demonstrationService =
                 demonstrationService ?? throw new ArgumentNullException(nameof(demonstrationService));
             _distanceCalculator = distanceCalculator ?? throw new ArgumentNullException(nameof(distanceCalculator));
             _stringLocalizer = stringLocalizer ?? throw new ArgumentNullException(nameof(stringLocalizer));
+            _reverseGeoCodingPlaceGetter = reverseGeoCodingPlaceGetter ?? throw new ArgumentNullException(nameof(reverseGeoCodingPlaceGetter));
         }
 
         public async Task<Poster> AddPosterAsync(PosterIn posterIn, DateTime currentDateTime)
@@ -42,6 +45,20 @@ namespace OnlineDemonstrator.MobileApi.Implementations
 
             try
             {
+                var targetDevice = await context.Devices.FirstOrDefaultAsync(x => x.Id == posterIn.DeviceId);
+
+                if (targetDevice == null)
+                {
+                    var isValidBaseDevice = Enum.TryParse(posterIn.BaseOs, out OperationSystems baseOs);
+                    var newDevice = new Device
+                    {
+                        Id = posterIn.DeviceId,
+                        CreatedDate = DateTime.UtcNow,
+                        OsId = isValidBaseDevice ? (int)baseOs : (int)OperationSystems.Unknown,
+                        IsLicenseActivated = true
+                    };
+                    await context.Devices.AddAsync(newDevice);
+                }
                 var actualDemonstrations = await _demonstrationService.GetActualDemonstrations(context);
     
                 Poster newPoster = null;
@@ -68,9 +85,12 @@ namespace OnlineDemonstrator.MobileApi.Implementations
 
                 if (newPoster == null)
                 {
+                    var formattedAddress =
+                        await _reverseGeoCodingPlaceGetter.GetAddressByGeoPosition(posterIn.Latitude, posterIn.Longitude);
+                    
                     var newDemonstration =
                         await _demonstrationService.AddAsync(context, posterIn.Latitude, posterIn.Longitude,
-                            currentDateTime, posterIn.CountryName, posterIn.CityName, posterIn.AreaName);
+                            currentDateTime, string.Empty, string.Empty, formattedAddress.FormattedAddress);
                     newPoster = new Poster
                     {
                         Name = posterIn.Name,
@@ -187,9 +207,21 @@ namespace OnlineDemonstrator.MobileApi.Implementations
 
             var demonstration = await context.Demonstrations.AsNoTracking().FirstOrDefaultAsync(x => x.Id == posterIn.DemonstrationId);
 
-            if (demonstration == null)
+            if (demonstration == null) return new Poster();
+
+            var targetDevice = await context.Devices.FirstOrDefaultAsync(x => x.Id == posterIn.DeviceId);
+
+            if (targetDevice == null)
             {
-                return new Poster();
+                var isValidBaseDevice = Enum.TryParse(posterIn.BaseOs, out OperationSystems baseOs);
+                var newDevice = new Device
+                {
+                    Id = posterIn.DeviceId,
+                    CreatedDate = DateTime.UtcNow,
+                    OsId = isValidBaseDevice ? (int)baseOs : (int)OperationSystems.Unknown,
+                    IsLicenseActivated = true
+                };
+                await context.Devices.AddAsync(newDevice);
             }
             
             var newPoster = new Poster
@@ -205,10 +237,22 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 CreatedDateTime = currentDateTime
             };
 
-            var posterEntity = await context.Posters.AddAsync(newPoster);
-            await context.SaveChangesAsync();
+            try
+            {
+                var posterEntity = await context.Posters.AddAsync(newPoster);
+                await context.SaveChangesAsync();
 
-            return posterEntity.Entity;
+                return posterEntity.Entity;
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException is PostgresException postgresException &&
+                    postgresException.SqlState == 23505.ToString())
+                {
+                    throw new ValidationException(_stringLocalizer["PosterConstraint"]);
+                }
+                throw;
+            }
         }
         
         public async Task<Poster> AddPosterToExpiredDemonstrationAsync(PosterIn posterIn, DateTime currentDateTime)
@@ -217,9 +261,21 @@ namespace OnlineDemonstrator.MobileApi.Implementations
 
             var demonstration = await context.Demonstrations.FirstOrDefaultAsync(x => x.Id == posterIn.DemonstrationId);
 
-            if (demonstration == null)
+            if (demonstration == null) return new Poster();
+
+            var targetDevice = await context.Devices.FirstOrDefaultAsync(x => x.Id == posterIn.DeviceId);
+
+            if (targetDevice == null)
             {
-                return new Poster();
+                var isValidBaseDevice = Enum.TryParse(posterIn.BaseOs, out OperationSystems baseOs);
+                var newDevice = new Device
+                {
+                    Id = posterIn.DeviceId,
+                    CreatedDate = DateTime.UtcNow,
+                    OsId = isValidBaseDevice ? (int)baseOs : (int)OperationSystems.Unknown,
+                    IsLicenseActivated = true
+                };
+                await context.Devices.AddAsync(newDevice);
             }
 
             demonstration.DemonstrationDate = currentDateTime.Date;
@@ -237,10 +293,22 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 CreatedDateTime = currentDateTime
             };
 
-            var posterEntity = await context.Posters.AddAsync(newPoster);
-            await context.SaveChangesAsync();
+            try
+            {
+                var posterEntity = await context.Posters.AddAsync(newPoster);
+                await context.SaveChangesAsync();
 
-            return posterEntity.Entity;
+                return posterEntity.Entity;
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException is PostgresException postgresException &&
+                    postgresException.SqlState == 23505.ToString())
+                {
+                    throw new ValidationException(_stringLocalizer["PosterConstraint"]);
+                }
+                throw;
+            }
         }
     }
 }

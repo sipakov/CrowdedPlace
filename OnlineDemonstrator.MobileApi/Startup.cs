@@ -15,7 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using OnlineDemonstrator.EfCli;
+using OnlineDemonstrator.Libraries.Domain.Models;
 using OnlineDemonstrator.MobileApi.CustomExceptionMiddleware.Extensions;
 using OnlineDemonstrator.MobileApi.Implementations;
 using OnlineDemonstrator.MobileApi.Interfaces;
@@ -34,6 +36,7 @@ namespace OnlineDemonstrator.MobileApi
             services.TryAddTransient<IDistanceCalculator, DistanceCalculator>();
             services.TryAddTransient<IDeviceService, DeviceService>();
             services.TryAddTransient<IObjectionableReasonService, ObjectionableReasonService>();
+            services.TryAddTransient<IReverseGeoCodingPlaceGetter, ReverseGeoCodingPlaceGetter>();
             
             var supportedCultures = new[]
             {
@@ -57,6 +60,7 @@ namespace OnlineDemonstrator.MobileApi
             {
                 options.KnownProxies.Add(IPAddress.Parse("84.201.184.247"));
             });
+
             services.AddControllers();
         }
 

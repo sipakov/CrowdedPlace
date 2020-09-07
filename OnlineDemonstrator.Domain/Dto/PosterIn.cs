@@ -20,5 +20,7 @@ namespace OnlineDemonstrator.Libraries.Domain.Dto
         public Guid DeviceId { get; set; }
 
         public int DemonstrationId { get; set; }
+
+        public string BaseOs { get; set; }
     }
 }

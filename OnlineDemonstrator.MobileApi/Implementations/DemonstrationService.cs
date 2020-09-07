@@ -39,7 +39,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 Latitude = x.Latitude,
                 Longitude = x.Longitude,
                 CountryName = x.CountryName,
-                DetailName = $"{x.CityName}, {x.AreaName}",
+                DetailName = x.AreaName,
                 IsExpired =  x.DemonstrationDate < actualDate,
                 PostersCount = demonstrationToPosterCount[x.Id]
             }).ToListAsync();

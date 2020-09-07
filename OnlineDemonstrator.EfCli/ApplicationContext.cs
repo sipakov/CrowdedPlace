@@ -64,7 +64,7 @@ namespace OnlineDemonstrator.EfCli
         private static void ConfigurePostersModelCreation(ModelBuilder modelBuilder)
         {
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
-            modelBuilder.Entity<Poster>().HasKey(x => new { x.DeviceId, x.CreatedDate});
+            modelBuilder.Entity<Poster>().HasKey(x => new { x.DeviceId, x.CreatedDate, x.DemonstrationId});
             modelBuilder.Entity<Poster>().Property(x => x.Name).HasMaxLength(30);
             modelBuilder.Entity<Poster>().Property(x => x.Title).HasMaxLength(100);
             modelBuilder.Entity<Poster>().Property(x => x.Message).HasMaxLength(1000);
