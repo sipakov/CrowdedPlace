@@ -62,5 +62,17 @@ namespace OnlineDemonstrator.MobileApi.Localization {
                 return ResourceManager.GetString("PosterConstraint", resourceCulture);
             }
         }
+        
+        internal static string License {
+            get {
+                return ResourceManager.GetString("License", resourceCulture);
+            }
+        }
+        
+        internal static string PrivacyPolicy {
+            get {
+                return ResourceManager.GetString("PrivacyPolicy", resourceCulture);
+            }
+        }
     }
 }

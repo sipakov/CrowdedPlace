@@ -27,4 +27,62 @@
     <data name="PosterConstraint" xml:space="preserve">
     <value>You cannot add more then one active banner in current demonstration (1 week from the day the demo was created or resumed)</value>
     </data>
+    <data name="License" xml:space="preserve">
+    <value>OnlineDemonstrator Copyright (c) 2020
+            
+*** END USER LICENSE AGREEMENT ***
+            
+IMPORTANT: PLEASE READ THIS LICENSE CAREFULLY BEFORE USING THIS SOFTWARE.
+            
+1. LICENSE
+By receiving, opening the file package, and/or using OnlineDemonstrator (Software) containing this software, you agree that this End User User License Agreement (EULA) is a legally binding and valid contract and agree to be bound by it. You agree to abide by the intellectual property laws and all of the terms and conditions of this Agreement. Unless you have a different license agreement signed by Stanislav Sipakov your use of OnlineDemonstrator indicates your acceptance of this license agreement and warranty. Subject to the terms of this Agreement, Stanislav Sipakov grants to you a limited, non-exclusive, non-transferable license, without right to sub-license, to use OnlineDemonstrator in accordance with this Agreement and any other written agreement with Stanislav Sipakov. Stanislav Sipakov does not transfer the title of OnlineDemonstrator to you; the license granted to you is not a sale. This agreement is a binding legal agreement between Stanislav Sipakov and the purchasers or users of OnlineDemonstrator. If you do not agree to be bound by this agreement, remove OnlineDemonstrator from your device now and, if applicable, promptly return to Stanislav Sipakov by mail any copies of OnlineDemonstrator and related documentation and packaging in your possession.
+            
+2. USER AGREEMENT
+2.1 Use Restrictions
+You agree that you have reached the age of majority. You shall use OnlineDemonstrator in compliance with all applicable laws and not for any unlawful purpose. Without limiting the foregoing, use, display or distribution of OnlineDemonstrator together with material that is pornographic, racist, vulgar, obscene, defamatory, libelous, abusive, promoting hatred, discriminating or displaying prejudice based on religion, ethnic heritage, race, sexual orientation or age is strictly prohibited. We undertake to remove inappropriate content and the user in the event of a complaint within 24 hours. Сomplain about inappropriate content possibly registered in the user system however, if you see inappropriate content we are not responsible           
+
+2.2 Copyright Restriction
+This Software contains copyrighted material, trade secrets and other proprietary material. You shall not, and shall not attempt to, modify, reverse engineer, disassemble or decompile OnlineDemonstrator. Nor can you create any derivative works or other works that are based upon or derived from OnlineDemonstrator in whole or in part. Stanislav Sipakov's name, logo and graphics file that represents OnlineDemonstrator shall not be used in any way to promote products developed with OnlineDemonstrator. Stanislav Sipakov retains sole and exclusive ownership of all right, title and interest in and to OnlineDemonstrator and all Intellectual Property rights relating thereto. Copyright law and international copyright treaty provisions protect all parts of OnlineDemonstrator, products and services. No program, code, part, image, audio sample, or text may be copied or used in any way by the user except as intended within the bounds of the single user program. All rights not expressly granted hereunder are reserved for Stanislav Sipakov.
+            
+2.3 Limitation of Responsibility
+You will indemnify, hold harmless, and defend Stanislav Sipakov, its employees, agents and distributors against any and all claims, proceedings, demand and costs resulting from or in any way connected with your use of Stanislav Sipakov's Software. In no event (including, without limitation, in the event of negligence) will Stanislav Sipakov, its employees, agents or distributors be liable for any consequential, incidental, indirect, special or punitive damages whatsoever (including, without limitation, damages for loss of profits, loss of use, business interruption, loss of information or data, or pecuniary loss), in connection with or arising out of or related to this Agreement, OnlineDemonstrator or the use or inability to use OnlineDemonstrator or the furnishing, performance or use of any other matters hereunder whether based upon contract, tort or any other theory including negligence.
+            
+2.4 Warranties 
+Except as expressly stated in writing, Stanislav Sipakov makes no representation or warranties in respect of this Software and expressly excludes all other warranties, expressed or implied, oral or written, including, without limitation, any implied warranties of merchantable quality or fitness for a particular purpose
+            
+2.5 Governing Law 
+This Agreement shall be governed by the law of the Russian Federation applicable therein. You hereby irrevocably attorn and submit to the non-exclusive jurisdiction of the courts of Russian Federation therefrom. If any provision shall be considered unlawful, void or otherwise unenforceable, then that provision shall be deemed severable from this License and not affect the validity and enforceability of any other provisions
+
+2.6 Termination
+Any failure to comply with the terms and conditions of this Agreement will result in automatic and immediate termination of this license. Upon termination of this license granted herein for any reason, you agree to immediately cease use of OnlineDemonstrator and destroy all copies of OnlineDemonstrator supplied under this Agreement. The financial obligations incurred by you shall survive the expiration or termination of this license 
+            
+3. DISCLAIMER OF WARRANTY
+THIS SOFTWARE AND THE ACCOMPANYING FILES ARE GAVE (AS IS) AND WITHOUT WARRANTIES AS TO PERFORMANCE OR MERCHANTABILITY OR ANY OTHER WARRANTIES WHETHER EXPRESSED OR IMPLIED. THIS DISCLAIMER CONCERNS ALL FILES GENERATED AND EDITED BY OnlineDemonstrator
+            
+4. CONSENT OF USE OF DATA
+You agree that Stanislav Sipakov may collect and use information gathered in any manner as part of the product support services provided to you, if any, related to OnlineDemonstrator. Stanislav Sipakov may also use this information to provide notices to you which may be of use or interest to you.
+        </value>
+    </data>
+    <data name="PrivacyPolicy" xml:space="preserve">
+    <value>OnlineDemonstrator Privacy Policy
+     
+1. Your privacy is important to us. It is OnlineDemonstrator's policy to respect your privacy regarding any information we may collect from you through our app, OnlineDemonstrator.
+            
+2. We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we're collecting it and how it will be used.
+            
+3. We only retain collected information for as long as necessary to provide you with your requested service. What data we store, we'll protect within commercially acceptable means to prevent loss and theft, as well as unauthorised access, disclosure, copying, use or modification.
+            
+4. We don't share any personally identifying information publicly or with third-parties, except when required to by law.
+            
+5. Our app may link to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.
+            
+6. You are free to refuse our request for your personal information, with the understanding that we may be unable to provide you with some of your desired services.
+            
+7. Your continued use of our website or mobile app will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to contact us.
+            
+8. App age limit: 18 years old or legal age in accordance with local law.
+            
+9. This policy is effective as of 3 May 2020.
+        </value>
+    </data>
 </root>

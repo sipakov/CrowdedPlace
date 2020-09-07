@@ -1,35 +1,38 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using OnlineDemonstrator.Libraries.Domain.Entities;
+using Microsoft.Extensions.Localization;
+using OnlineDemonstrator.MobileApi.Models;
 
 namespace OnlineDemonstrator.MobileApi.Controllers
 {
     [Route("[controller]")]
     public class MetadataController : ControllerBase
     {
+        private readonly IStringLocalizer<AppResources> _stringLocalizer;
 
-        IMongoCollection<Contact> Contacts;
-
-        public MetadataController()
+        public MetadataController(IStringLocalizer<AppResources> stringLocalizer)
         {
-            string connectionString = "mongodb://134.209.30.64:27017/OnlineDemonstratorDb";
-            var connection = new MongoUrlBuilder(connectionString);
-            MongoClient client = new MongoClient(connectionString);
-            IMongoDatabase database = client.GetDatabase(connection.DatabaseName);
-            // обращаемся к коллекции Products
-            Contacts = database.GetCollection<Contact>("Contacts");
+            _stringLocalizer = stringLocalizer;
         }
 
-        [HttpGet("getContacts")]
-        public async Task<ActionResult<Contact>> GetAsync()
+        [HttpGet("getLicense")]
+        public ActionResult<Metadata> GetLicense()
         {
-            if (!ModelState.IsValid) return BadRequest();
-
-            var results = await Contacts.Find(x => x.Author == "Sipakov S").FirstOrDefaultAsync();
-
-            return results;
+            var metadata = new Metadata
+            {
+                Value = _stringLocalizer["License"]
+            };
+            return metadata;
+        }
+        
+        [HttpGet("getPrivacyPolicy")]
+        public ActionResult<Metadata> GetPrivacyPolicy()
+        {
+            var metadata = new Metadata
+            {
+                Value = _stringLocalizer["PrivacyPolicy"]
+            };
+            return metadata;
         }
     }
 }
