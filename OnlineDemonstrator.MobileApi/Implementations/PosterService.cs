@@ -175,18 +175,19 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                     CreatedDate = x.CreatedDate,
                     Name = x.Name,
                     Title = x.Title,
-                    Message = x.Message.ToCharArray().Length > messageContentLength ? $"{x.Message.Substring(0, messageContentLength)}..." : x.Message
+                    Message = x.Message.ToCharArray().Length > messageContentLength ? $"{x.Message.Substring(0, messageContentLength)}..." : x.Message,
+                    DemonstrationId = x.DemonstrationId
                 })
                 .ToListAsync();
 
             return targetPosters;
         }
 
-        public async Task<PosterOut> GetPosterById(Guid deviceId, DateTime createdDate)
+        public async Task<PosterOut> GetPosterById(Guid deviceId, DateTime createdDate, int demonstrationId)
         {
             await using var context = _contextFactory.CreateContext();
 
-            var targetPoster = await context.Posters.FindAsync(deviceId, createdDate);
+            var targetPoster = await context.Posters.FindAsync(deviceId, createdDate, demonstrationId);
 
             var posterOut = new PosterOut
             {

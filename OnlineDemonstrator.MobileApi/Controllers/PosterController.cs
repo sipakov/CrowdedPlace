@@ -50,7 +50,7 @@ namespace OnlineDemonstrator.MobileApi.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            return await _posterService.GetPosterById(posterOut.DeviceId, posterOut.CreatedDate);
+            return await _posterService.GetPosterById(posterOut.DeviceId, posterOut.CreatedDate, posterOut.DemonstrationId);
         }
         
         [HttpPost("addToExistDemonstration")]
