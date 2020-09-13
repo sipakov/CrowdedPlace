@@ -1,10 +1,10 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b7c25579_002D7dad_002D474f_002Dace2_002Da0aa2db24970/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="False" ContinuousTestingMode="0" FrameworkVersion="{x:Null}" IsLocked="False" Name="Find_target_posters" PlatformMonoPreference="{x:Null}" PlatformType="{x:Null}" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b7c25579_002D7dad_002D474f_002Dace2_002Da0aa2db24970/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Find_target_posters" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::EC0A643A-4690-4894-916A-5EBABBAC1946::.NETCoreApp,Version=v3.1::OnlineDemonstrator.MobileApi.Tests.PosterControllerTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d043095d_002D7f19_002D44f5_002Db81f_002D7dafea76d4c6/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="False" ContinuousTestingMode="0" FrameworkVersion="{x:Null}" IsLocked="False" Name="Find_target_posters #2" PlatformMonoPreference="{x:Null}" PlatformType="{x:Null}" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d043095d_002D7f19_002D44f5_002Db81f_002D7dafea76d4c6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Find_target_posters #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::EC0A643A-4690-4894-916A-5EBABBAC1946::.NETCoreApp,Version=v3.1::OnlineDemonstrator.MobileApi.Tests.PosterControllerTest.Find_target_posters&lt;/TestId&gt;
   &lt;/TestAncestor&gt;

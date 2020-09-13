@@ -4,7 +4,7 @@ namespace OnlineDemonstrator.Libraries.Domain.Entities
 {
     public class Poster
     {
-        public Guid DeviceId { get; set; }
+        public string DeviceId { get; set; }
 
         public Device Device { get; set; }
 

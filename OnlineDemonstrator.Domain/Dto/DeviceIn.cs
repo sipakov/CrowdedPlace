@@ -4,7 +4,7 @@ namespace OnlineDemonstrator.Libraries.Domain.Dto
 {
     public class DeviceIn
     {
-        public Guid DeviceId { get; set; }
+        public string DeviceId { get; set; }
 
         public bool IsLicenseActivated { get; set; }
 

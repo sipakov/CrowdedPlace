@@ -20,5 +20,7 @@ namespace OnlineDemonstrator.Libraries.Domain.Dto
         public string ExpDays { get; set; }
 
         public bool IsExpired { get; set; }
+
+        public string DemonstrationTitle { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace OnlineDemonstrator.MobileApi.Interfaces
 
         Task<List<PosterOut>> GetPostersByDemonstrationId(int demonstrationId);
 
-        Task<PosterOut> GetPosterById(Guid deviceId, DateTime createdDate, int demonstrationId);
+        Task<PosterOut> GetPosterById(string deviceId, DateTime createdDate, int demonstrationId);
         
         Task<Poster> AddPosterToExistDemonstrationAsync(PosterIn posterIn, DateTime currentDateTime);
 

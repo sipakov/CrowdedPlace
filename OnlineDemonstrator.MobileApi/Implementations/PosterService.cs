@@ -176,14 +176,15 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                     Name = x.Name,
                     Title = x.Title,
                     Message = x.Message.ToCharArray().Length > messageContentLength ? $"{x.Message.Substring(0, messageContentLength)}..." : x.Message,
-                    DemonstrationId = x.DemonstrationId
+                    DemonstrationId = x.DemonstrationId,
+                    CreatedDateTime = x.CreatedDateTime
                 })
                 .ToListAsync();
 
             return targetPosters;
         }
 
-        public async Task<PosterOut> GetPosterById(Guid deviceId, DateTime createdDate, int demonstrationId)
+        public async Task<PosterOut> GetPosterById(string deviceId, DateTime createdDate, int demonstrationId)
         {
             await using var context = _contextFactory.CreateContext();
 

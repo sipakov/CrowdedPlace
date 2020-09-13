@@ -4,7 +4,7 @@ namespace OnlineDemonstrator.Libraries.Domain.Entities
 {
     public class Device
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public int OsId { get; set; }
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnlineDemonstrator.EfCli;
@@ -9,9 +10,10 @@ using OnlineDemonstrator.EfCli;
 namespace OnlineDemonstrator.EfCli.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20200913095352_UpdateDeviceIdTypeInPosterAndDevice")]
+    partial class UpdateDeviceIdTypeInPosterAndDevice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,12 +157,6 @@ namespace OnlineDemonstrator.EfCli.Migrations
                     b.HasOne("OnlineDemonstrator.Libraries.Domain.Entities.Demonstration", "Demonstration")
                         .WithMany()
                         .HasForeignKey("DemonstrationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OnlineDemonstrator.Libraries.Domain.Entities.Device", "Device")
-                        .WithMany()
-                        .HasForeignKey("DeviceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

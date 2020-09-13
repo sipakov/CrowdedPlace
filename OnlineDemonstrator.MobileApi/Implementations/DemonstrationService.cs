@@ -28,7 +28,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             const int expDay = 7;
             var currentDate = DateTime.UtcNow.Date;
             var actualDate = currentDate.AddDays(-expDay);
-
+            
             var demonstrationToPosterCount = await context.Posters.AsNoTracking().GroupBy(x => x.DemonstrationId)
                 .Select(x => new KeyValuePair<int, int>(x.Key, x.Count())).ToDictionaryAsync(x => x.Key, x => x.Value);
 
