@@ -7,6 +7,7 @@ using OnlineDemonstrator.EfCli;
 using OnlineDemonstrator.Libraries.Domain.Dto;
 using OnlineDemonstrator.Libraries.Domain.Entities;
 using OnlineDemonstrator.MobileApi.Interfaces;
+using OnlineDemonstrator.MobileApi.Models;
 
 namespace OnlineDemonstrator.MobileApi.Implementations
 {
@@ -28,9 +29,9 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             const int expDay = 7;
             var currentDate = DateTime.UtcNow.Date;
             var actualDate = currentDate.AddDays(-expDay);
-            
-            var demonstrationToPosterCount = await context.Posters.AsNoTracking().GroupBy(x => x.DemonstrationId)
-                .Select(x => new KeyValuePair<int, int>(x.Key, x.Count())).ToDictionaryAsync(x => x.Key, x => x.Value);
+            //for visual test. rewrite to dapper!
+            var demonstrationToDemonstrationInfo = (context.Posters.AsNoTracking().ToLookup(x => x.DemonstrationId))
+                .Select(x => new KeyValuePair<int, DemonstrationInfo>(x.Key, new DemonstrationInfo{Count = x.Count(), DemonstrationTitle = x.First().Title.Length > 50 ? $"{x.First().Title.Substring(0, 50)}..." : x.First().Title,} )).ToDictionary(x => x.Key, x => x.Value);
 
             var actualDemonstrations = await context.Demonstrations.AsNoTracking().Where(x=>!x.IsDeleted).OrderByDescending(x=>x.DemonstrationDate).Select(x=> new DemonstrationOut()
             {
@@ -41,7 +42,8 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 CountryName = x.CountryName,
                 DetailName = x.AreaName,
                 IsExpired =  x.DemonstrationDate < actualDate,
-                PostersCount = demonstrationToPosterCount[x.Id]
+                PostersCount = demonstrationToDemonstrationInfo[x.Id].Count,
+                DemonstrationTitle = demonstrationToDemonstrationInfo[x.Id].DemonstrationTitle
             }).ToListAsync();
 
             return actualDemonstrations;
