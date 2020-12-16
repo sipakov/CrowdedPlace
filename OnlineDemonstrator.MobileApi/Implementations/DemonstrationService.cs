@@ -31,7 +31,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             var actualDate = currentDate.AddDays(-expDay);
             //for visual test. rewrite to dapper!
             var demonstrationToDemonstrationInfo = (context.Posters.AsNoTracking().ToLookup(x => x.DemonstrationId))
-                .Select(x => new KeyValuePair<int, DemonstrationInfo>(x.Key, new DemonstrationInfo{Count = x.Count(), DemonstrationTitle = x.First().Title.Length > 50 ? $"{x.First().Title.Substring(0, 50)}..." : x.First().Title,} )).ToDictionary(x => x.Key, x => x.Value);
+                .Select(x => new KeyValuePair<int, DemonstrationInfo>(x.Key, new DemonstrationInfo{Count = x.Count(), DemonstrationTitle = x.Last().Title.Length > 50 ? $"{x.Last().Title.Substring(0, 50)}..." : x.Last().Title,} )).ToDictionary(x => x.Key, x => x.Value);
 
             var actualDemonstrations = await context.Demonstrations.AsNoTracking().Where(x=>!x.IsDeleted).OrderByDescending(x=>x.DemonstrationDate).Select(x=> new DemonstrationOut()
             {
