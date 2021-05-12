@@ -8,6 +8,8 @@ namespace OnlineDemonstrator.Libraries.Domain.Dto
 
         public bool IsLicenseActivated { get; set; }
 
-        public int OsId { get; set; }
+        public string BaseOs { get; set; }
+
+        public string FcmToken { get; set; }
     }
 }

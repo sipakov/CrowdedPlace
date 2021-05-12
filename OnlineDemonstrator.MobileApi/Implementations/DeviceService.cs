@@ -7,6 +7,7 @@ using Microsoft.Extensions.Localization;
 using OnlineDemonstrator.EfCli;
 using OnlineDemonstrator.Libraries.Domain.Dto;
 using OnlineDemonstrator.Libraries.Domain.Entities;
+using OnlineDemonstrator.Libraries.Domain.Enums;
 using OnlineDemonstrator.Libraries.Domain.Models;
 using OnlineDemonstrator.MobileApi.Interfaces;
 
@@ -29,17 +30,29 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             if (deviceIn == null) throw new ArgumentNullException(nameof(deviceIn));
 
             await using var context = _contextFactory.CreateContext();
+            var isValidBaseDevice = Enum.TryParse(deviceIn.BaseOs, out OperationSystems baseOs);
 
-            var device = new Device
+            var targetDevice = await context.Devices.FirstOrDefaultAsync(x => x.Id == deviceIn.DeviceId);
+
+            if (targetDevice != null)
             {
-                Id = deviceIn.DeviceId,
-                CreatedDate = DateTime.UtcNow,
-                OsId = deviceIn.OsId,
-                IsLicenseActivated = deviceIn.IsLicenseActivated
-            };
-
-            await context.Devices.AddAsync(device);
-            await context.SaveChangesAsync();
+                targetDevice.FcmToken = deviceIn.FcmToken;
+                targetDevice.LastVisitDate = DateTime.UtcNow;
+                await context.SaveChangesAsync();
+            }
+            else
+            {
+                var device = new Device
+                {
+                    Id = deviceIn.DeviceId,
+                    CreatedDate = DateTime.UtcNow,
+                    LastVisitDate = DateTime.UtcNow,
+                    FcmToken = deviceIn.FcmToken,
+                    OsId = isValidBaseDevice ? (int)baseOs : (int)OperationSystems.Unknown
+                };
+                await context.Devices.AddAsync(device);
+                await context.SaveChangesAsync();  
+            }
             return new BaseResult();
         }
 

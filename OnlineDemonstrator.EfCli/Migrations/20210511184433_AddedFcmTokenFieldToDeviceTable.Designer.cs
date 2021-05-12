@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnlineDemonstrator.EfCli;
@@ -9,9 +10,10 @@ using OnlineDemonstrator.EfCli;
 namespace OnlineDemonstrator.EfCli.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210511184433_AddedFcmTokenFieldToDeviceTable")]
+    partial class AddedFcmTokenFieldToDeviceTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,9 +80,6 @@ namespace OnlineDemonstrator.EfCli.Migrations
 
                     b.Property<bool>("IsNotSendNotifications")
                         .HasColumnType("boolean");
-
-                    b.Property<DateTime>("LastVisitDate")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("OsId")
                         .HasColumnType("integer");

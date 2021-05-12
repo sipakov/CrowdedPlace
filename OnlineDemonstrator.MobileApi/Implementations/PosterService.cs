@@ -1,9 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using Amver.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
 using Npgsql;
 using OnlineDemonstrator.EfCli;
 using OnlineDemonstrator.Libraries.Domain.Dto;
@@ -23,9 +30,10 @@ namespace OnlineDemonstrator.MobileApi.Implementations
         private const int DemonstrationDistanceInKilometers = 1;
         private readonly IStringLocalizer<AppResources> _stringLocalizer;
         private readonly IReverseGeoCodingPlaceGetter _reverseGeoCodingPlaceGetter;
+        private readonly IConfiguration _config;
 
         public PosterService(IContextFactory<ApplicationContext> contextFactory,
-            IDemonstrationService demonstrationService, IDistanceCalculator distanceCalculator, IStringLocalizer<AppResources> stringLocalizer, IReverseGeoCodingPlaceGetter reverseGeoCodingPlaceGetter)
+            IDemonstrationService demonstrationService, IDistanceCalculator distanceCalculator, IStringLocalizer<AppResources> stringLocalizer, IReverseGeoCodingPlaceGetter reverseGeoCodingPlaceGetter, IConfiguration config)
         {
             _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
             _demonstrationService =
@@ -33,6 +41,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             _distanceCalculator = distanceCalculator ?? throw new ArgumentNullException(nameof(distanceCalculator));
             _stringLocalizer = stringLocalizer ?? throw new ArgumentNullException(nameof(stringLocalizer));
             _reverseGeoCodingPlaceGetter = reverseGeoCodingPlaceGetter ?? throw new ArgumentNullException(nameof(reverseGeoCodingPlaceGetter));
+            _config = config ?? throw new ArgumentNullException(nameof(config));
         }
 
         public async Task<Poster> AddPosterAsync(PosterIn posterIn, DateTime currentDateTime)
@@ -62,7 +71,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 var actualDemonstrations = await _demonstrationService.GetActualDemonstrations(context);
     
                 Poster newPoster = null;
-
+                var isNewDemonstration = false;
                 foreach (var actualDemonstration in actualDemonstrations)
                 {
                     var distance = _distanceCalculator.GetDistanceInKilometers(posterIn.Latitude, posterIn.Longitude,
@@ -83,12 +92,14 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                     break;
                 }
 
+                Demonstration newDemonstration = new Demonstration();
                 if (newPoster == null)
                 {
+                    isNewDemonstration = true;
                     var formattedAddress =
                         await _reverseGeoCodingPlaceGetter.GetAddressByGeoPosition(posterIn.Latitude, posterIn.Longitude, posterIn.Locale);
                     
-                    var newDemonstration =
+                    newDemonstration =
                         await _demonstrationService.AddAsync(context, posterIn.Latitude, posterIn.Longitude,
                             currentDateTime, string.Empty, string.Empty, formattedAddress.FormattedAddress);
                     newPoster = new Poster
@@ -108,18 +119,29 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 var device = await context.Devices.AsNoTracking().FirstOrDefaultAsync(x => x.Id == posterIn.DeviceId);
                 if (device == null) throw new ArgumentNullException(nameof(device));
 
-                // var activePosterCount = await context.Posters.Where(x =>
-                //     x.DeviceId == posterIn.DeviceId && x.CreatedDate > DateTime.UtcNow.Date.AddDays(-7)).CountAsync();
-                //
-                // if (activePosterCount == 3)
-                // {
-                //     throw new ValidationException(_stringLocalizer["PosterConstraint"]);
-                // }
+                var activePosterCount = await context.Posters.Where(x =>
+                    x.DeviceId == posterIn.DeviceId && x.CreatedDate > DateTime.UtcNow.Date.AddDays(-7)).CountAsync();
+                
+                if (activePosterCount >= 1)
+                {
+                    throw new ValidationException(_stringLocalizer["PosterConstraint"]);
+                }
 
                 var posterEntity = await context.Posters.AddAsync(newPoster);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
-                return posterEntity.Entity;
+
+                var targetCountry = newDemonstration.AreaName;
+                var areaArray = newDemonstration.AreaName.Split(",").ToList();
+                if (areaArray.Any())
+                {
+                    targetCountry = areaArray.Last().Trim();
+                }
+                var targetTitle = isNewDemonstration ? $"New demonstration in {targetCountry}" : "New poster";
+                var targetMessage = isNewDemonstration ? posterEntity.Entity.Title : "";
+                Task.Run(async ()=>await SendNotifications(targetTitle, targetMessage));
+                
+                return posterEntity.Entity; 
             }
             catch (Exception ex)
             {
@@ -132,6 +154,37 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 await transaction.RollbackAsync();
                 throw;
             }
+        }
+
+        private async Task SendNotifications(string title, string message)
+        {
+            await using var context = _contextFactory.CreateContext();
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var fcmToken = _config.GetSection("KeyApiGoogleNotifications").Value;
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fcmToken);
+            
+            var targetFcmTokens = context.Devices.Where(x=>!x.IsNotSendNotifications && !string.IsNullOrEmpty(x.FcmToken)).Select(x=>x.FcmToken).ToList();
+            
+            var push = new Push
+            {
+                registration_ids = targetFcmTokens,
+                notification = new Notification
+                {
+                    title =title,
+                    body = message,
+                    content_available = true,
+                    priority = "high",
+                    //badge = 1,
+                    sound = "default",
+                    //icon = "ic_launcher_notification"
+                },
+                data = new Data()
+            };
+            var content = JsonConvert.SerializeObject(push);
+            HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+            const string url = "https://fcm.googleapis.com/fcm/send";
+            _ = await httpClient.PostAsync(url, httpContent);  
         }
 
         public async Task<List<PosterOut>> GetFromActualDemonstrations(int postersCountInDemonstration)
