@@ -85,4 +85,10 @@ OnlineDemonstrator содержит материалы, защищенные а�
 9. Эта политика действует с 3 мая 2020 года.
         </value>
     </data>
+    <data name="LookAtTheNewDemonstrationPush" xml:space="preserve">
+        <value> Новый митинг</value>
+    </data>
+    <data name="NewPosterPush" xml:space="preserve">
+        <value>Новый плакат в вашем митинге</value>
+    </data>
 </root>

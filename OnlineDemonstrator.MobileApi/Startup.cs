@@ -37,6 +37,7 @@ namespace OnlineDemonstrator.MobileApi
             services.TryAddTransient<IDeviceService, DeviceService>();
             services.TryAddTransient<IObjectionableReasonService, ObjectionableReasonService>();
             services.TryAddTransient<IReverseGeoCodingPlaceGetter, ReverseGeoCodingPlaceGetter>();
+            services.TryAddTransient<IPushNotifier, PushNotifier>();
             
             var supportedCultures = new[]
             {

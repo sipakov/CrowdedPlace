@@ -30,10 +30,10 @@ namespace OnlineDemonstrator.MobileApi.Implementations
         private const int DemonstrationDistanceInKilometers = 1;
         private readonly IStringLocalizer<AppResources> _stringLocalizer;
         private readonly IReverseGeoCodingPlaceGetter _reverseGeoCodingPlaceGetter;
-        private readonly IConfiguration _config;
+        private readonly IPushNotifier _pushNotifier;
 
         public PosterService(IContextFactory<ApplicationContext> contextFactory,
-            IDemonstrationService demonstrationService, IDistanceCalculator distanceCalculator, IStringLocalizer<AppResources> stringLocalizer, IReverseGeoCodingPlaceGetter reverseGeoCodingPlaceGetter, IConfiguration config)
+            IDemonstrationService demonstrationService, IDistanceCalculator distanceCalculator, IStringLocalizer<AppResources> stringLocalizer, IReverseGeoCodingPlaceGetter reverseGeoCodingPlaceGetter, IPushNotifier pushNotifier)
         {
             _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
             _demonstrationService =
@@ -41,7 +41,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             _distanceCalculator = distanceCalculator ?? throw new ArgumentNullException(nameof(distanceCalculator));
             _stringLocalizer = stringLocalizer ?? throw new ArgumentNullException(nameof(stringLocalizer));
             _reverseGeoCodingPlaceGetter = reverseGeoCodingPlaceGetter ?? throw new ArgumentNullException(nameof(reverseGeoCodingPlaceGetter));
-            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _pushNotifier = pushNotifier ?? throw new ArgumentNullException(nameof(pushNotifier));
         }
 
         public async Task<Poster> AddPosterAsync(PosterIn posterIn, DateTime currentDateTime)
@@ -137,10 +137,22 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 {
                     targetCountry = areaArray.Last().Trim();
                 }
-                var targetTitle = isNewDemonstration ? $"New demonstration in {targetCountry}" : "New poster";
-                var targetMessage = isNewDemonstration ? posterEntity.Entity.Title : "";
-                Task.Run(async ()=>await SendNotifications(targetTitle, targetMessage));
-                
+
+                if (isNewDemonstration)
+                {
+                    var targetFcmTokens = context.Devices.Where(x => !x.IsNotSendNotifications && !string.IsNullOrEmpty(x.FcmToken) && x.Id != posterIn.DeviceId).Select(x => x.FcmToken).ToList();
+                    var targetTitle = $"{_stringLocalizer["LookAtTheNewDemonstrationPush"]} ({targetCountry})";
+                    var targetMessage = posterEntity.Entity.Title;
+                    Task.Run(async ()=> await _pushNotifier.SendPushNotifications(targetTitle, targetMessage, targetFcmTokens));
+                }
+                else
+                {
+                    var targetFcmTokens = context.Posters.Include(x => x.Device)
+                        .Where(x => x.DemonstrationId == newPoster.DemonstrationId && x.DeviceId != posterIn.DeviceId).Select(x => x.Device.FcmToken).ToList();
+                    var targetTitle = $"{_stringLocalizer["NewPosterPush"]})";
+                    var targetMessage = posterEntity.Entity.Title;
+                    Task.Run(async ()=> await _pushNotifier.SendPushNotifications(targetTitle, targetMessage, targetFcmTokens));
+                }
                 return posterEntity.Entity; 
             }
             catch (Exception ex)
@@ -154,37 +166,6 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 await transaction.RollbackAsync();
                 throw;
             }
-        }
-
-        private async Task SendNotifications(string title, string message)
-        {
-            await using var context = _contextFactory.CreateContext();
-            var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var fcmToken = _config.GetSection("KeyApiGoogleNotifications").Value;
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fcmToken);
-            
-            var targetFcmTokens = context.Devices.Where(x=>!x.IsNotSendNotifications && !string.IsNullOrEmpty(x.FcmToken)).Select(x=>x.FcmToken).ToList();
-            
-            var push = new Push
-            {
-                registration_ids = targetFcmTokens,
-                notification = new Notification
-                {
-                    title =title,
-                    body = message,
-                    content_available = true,
-                    priority = "high",
-                    //badge = 1,
-                    sound = "default",
-                    //icon = "ic_launcher_notification"
-                },
-                data = new Data()
-            };
-            var content = JsonConvert.SerializeObject(push);
-            HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-            const string url = "https://fcm.googleapis.com/fcm/send";
-            _ = await httpClient.PostAsync(url, httpContent);  
         }
 
         public async Task<List<PosterOut>> GetFromActualDemonstrations(int postersCountInDemonstration)
@@ -296,6 +277,20 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             {
                 var posterEntity = await context.Posters.AddAsync(newPoster);
                 await context.SaveChangesAsync();
+                
+                var targetCountry = demonstration.AreaName;
+                var areaArray = demonstration.AreaName.Split(",").ToList();
+                if (areaArray.Any())
+                {
+                    targetCountry = areaArray.Last().Trim();
+                }
+                
+                var targetFcmTokens = context.Posters.Include(x => x.Device)
+                    .Where(x => x.DemonstrationId == newPoster.DemonstrationId && x.DeviceId != posterIn.DeviceId).Select(x => x.Device.FcmToken).ToList();
+                var targetTitle = $"{_stringLocalizer["NewPosterPush"]} ({targetCountry})";
+                var targetMessage = posterEntity.Entity.Title;
+                Task.Run(async () => await _pushNotifier.SendPushNotifications(targetTitle, targetMessage, targetFcmTokens));
+                
 
                 return posterEntity.Entity;
             }
@@ -352,6 +347,19 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             {
                 var posterEntity = await context.Posters.AddAsync(newPoster);
                 await context.SaveChangesAsync();
+                
+                var targetCountry = demonstration.AreaName;
+                var areaArray = demonstration.AreaName.Split(",").ToList();
+                if (areaArray.Any())
+                {
+                    targetCountry = areaArray.Last().Trim();
+                }
+                
+                var targetFcmTokens = context.Posters.Include(x => x.Device)
+                    .Where(x => x.DemonstrationId == newPoster.DemonstrationId && x.DeviceId != posterIn.DeviceId).Select(x => x.Device.FcmToken).ToList();
+                var targetTitle = $"{_stringLocalizer["NewPosterPush"]} ({targetCountry})";
+                var targetMessage = posterEntity.Entity.Title;
+                Task.Run(async () => await _pushNotifier.SendPushNotifications(targetTitle, targetMessage, targetFcmTokens));
 
                 return posterEntity.Entity;
             }
