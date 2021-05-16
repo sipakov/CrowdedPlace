@@ -60,6 +60,7 @@ namespace OnlineDemonstrator.EfCli
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<Device>().HasKey(x => new { x.Id});
             modelBuilder.Entity<Device>().Property(x => x.FcmToken).HasMaxLength(500);
+            modelBuilder.Entity<Device>().Property(x => x.Locale).HasMaxLength(50);
         }
         
         private static void ConfigurePostersModelCreation(ModelBuilder modelBuilder)

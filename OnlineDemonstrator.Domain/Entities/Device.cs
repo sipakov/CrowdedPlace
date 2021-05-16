@@ -18,6 +18,8 @@ namespace OnlineDemonstrator.Libraries.Domain.Entities
 
         public bool IsLicenseActivated { get; set; }
 
+        public string Locale { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public bool IsBanned { get; set; }

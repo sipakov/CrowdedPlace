@@ -136,6 +136,11 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 if (areaArray.Any())
                 {
                     targetCountry = areaArray.Last().Trim();
+                    var isNumeric = int.TryParse(targetCountry, out var targetCountryStr);
+                    if (isNumeric && areaArray.Count > 1)
+                    {
+                        targetCountry = areaArray[^2].Trim();
+                    }
                 }
 
                 if (isNewDemonstration)
@@ -272,6 +277,14 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 CreatedDate = demonstration.DemonstrationDate,
                 CreatedDateTime = currentDateTime
             };
+            
+            var activePosterCount = await context.Posters.Where(x =>
+                x.DeviceId == posterIn.DeviceId && x.CreatedDate > DateTime.UtcNow.Date.AddDays(-7)).CountAsync();
+                
+            if (activePosterCount >= 1)
+            {
+                throw new ValidationException(_stringLocalizer["PosterConstraint"]);
+            }
 
             try
             {
@@ -342,6 +355,14 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 CreatedDate = currentDateTime.Date,
                 CreatedDateTime = currentDateTime
             };
+            
+            var activePosterCount = await context.Posters.Where(x =>
+                x.DeviceId == posterIn.DeviceId && x.CreatedDate > DateTime.UtcNow.Date.AddDays(-7)).CountAsync();
+                
+            if (activePosterCount >= 1)
+            {
+                throw new ValidationException(_stringLocalizer["PosterConstraint"]);
+            }
 
             try
             {

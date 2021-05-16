@@ -38,6 +38,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             {
                 targetDevice.FcmToken = deviceIn.FcmToken;
                 targetDevice.LastVisitDate = DateTime.UtcNow;
+                targetDevice.Locale = deviceIn.Locale;
                 await context.SaveChangesAsync();
             }
             else
@@ -48,7 +49,8 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                     CreatedDate = DateTime.UtcNow,
                     LastVisitDate = DateTime.UtcNow,
                     FcmToken = deviceIn.FcmToken,
-                    OsId = isValidBaseDevice ? (int)baseOs : (int)OperationSystems.Unknown
+                    OsId = isValidBaseDevice ? (int)baseOs : (int)OperationSystems.Unknown,
+                    Locale = deviceIn.Locale
                 };
                 await context.Devices.AddAsync(device);
                 await context.SaveChangesAsync();  

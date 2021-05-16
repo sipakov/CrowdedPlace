@@ -11,5 +11,7 @@ namespace OnlineDemonstrator.Libraries.Domain.Dto
         public string BaseOs { get; set; }
 
         public string FcmToken { get; set; }
+
+        public string Locale { get; set; }
     }
 }
