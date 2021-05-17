@@ -1,23 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
 using OnlineDemonstrator.EfCli;
-using OnlineDemonstrator.Libraries.Domain.Models;
 using OnlineDemonstrator.MobileApi.CustomExceptionMiddleware.Extensions;
 using OnlineDemonstrator.MobileApi.Implementations;
 using OnlineDemonstrator.MobileApi.Interfaces;
@@ -42,7 +32,10 @@ namespace OnlineDemonstrator.MobileApi
             var supportedCultures = new[]
             {
                 new CultureInfo("ru"),
-                new CultureInfo("en")
+                new CultureInfo("en"),
+                new CultureInfo("es"),
+                new CultureInfo("de"),
+                new CultureInfo("ja")
             };
 
             services.Configure<RequestLocalizationOptions>(options =>

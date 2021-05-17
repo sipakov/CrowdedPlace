@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
 using OnlineDemonstrator.EfCli;
 using OnlineDemonstrator.Libraries.Domain.Dto;
 using OnlineDemonstrator.Libraries.Domain.Entities;
@@ -16,13 +15,10 @@ namespace OnlineDemonstrator.MobileApi.Implementations
     public class DeviceService : IDeviceService
     {
         private readonly IContextFactory<ApplicationContext> _contextFactory;
-        private readonly IStringLocalizer<AppResources> _stringLocalizer;
 
-        public DeviceService(IContextFactory<ApplicationContext> contextFactory,
-            IStringLocalizer<AppResources> stringLocalizer)
+        public DeviceService(IContextFactory<ApplicationContext> contextFactory)
         {
             _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
-            _stringLocalizer = stringLocalizer ?? throw new ArgumentNullException(nameof(stringLocalizer));
         }
 
         public async Task<BaseResult> AddAsync([FromBody, Required] DeviceIn deviceIn)

@@ -19,13 +19,13 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="LicenseIsNotAccepted" xml:space="preserve">
-        <value>License is not accepted</value>
+        <value>Вы не приняли условия лицензии</value>
     </data>
     <data name="ReportIsAlreadyAComplaint" xml:space="preserve">
-    <value>Report is already a complaint</value>
+    <value>Жалоба уже была зарегистрирована ранее</value>
     </data>
     <data name="PosterConstraint" xml:space="preserve">
-    <value>You cannot add more then one active banner in current demonstration (1 week from the day the demo was created or resumed)</value>
+    <value>Вы не можете добавить более одного активного плаката (плакат действителен одну неделю с дня создания)</value>
     </data>
     <data name="License" xml:space="preserve">
         <value>Crowded Place Copyright (c) 2020
@@ -86,9 +86,9 @@ You agree that Stanislav Sipakov may collect and use information gathered in any
         </value>
     </data>
     <data name="LookAtTheNewDemonstrationPush" xml:space="preserve">
-        <value>Look at the new demonstration</value>
+        <value> Новый митинг</value>
     </data>
     <data name="NewPosterPush" xml:space="preserve">
-        <value>New poster in your demo</value>
+        <value>Новый плакат в вашем митинге</value>
     </data>
 </root>

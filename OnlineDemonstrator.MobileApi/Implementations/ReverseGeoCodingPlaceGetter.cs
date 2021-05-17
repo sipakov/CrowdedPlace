@@ -3,10 +3,8 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using OnlineDemonstrator.MobileApi.Interfaces;
 using OnlineDemonstrator.MobileApi.Models;
 

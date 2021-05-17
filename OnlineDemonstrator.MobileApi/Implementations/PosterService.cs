@@ -1,16 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
-using Amver.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json;
 using Npgsql;
 using OnlineDemonstrator.EfCli;
 using OnlineDemonstrator.Libraries.Domain.Dto;
@@ -304,7 +297,6 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 var targetMessage = posterEntity.Entity.Title;
                 Task.Run(async () => await _pushNotifier.SendPushNotifications(targetTitle, targetMessage, targetFcmTokens));
                 
-
                 return posterEntity.Entity;
             }
             catch (Exception ex)

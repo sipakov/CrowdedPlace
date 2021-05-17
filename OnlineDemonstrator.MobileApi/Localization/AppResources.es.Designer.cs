@@ -22,14 +22,14 @@ namespace OnlineDemonstrator.MobileApi.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppResources_ru {
+    internal class AppResources_es {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AppResources_ru() {
+        internal AppResources_es() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OnlineDemonstrator.MobileApi.Localization.AppResources.ru", typeof(AppResources_ru).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OnlineDemonstrator.MobileApi.Localization.AppResources.es", typeof(AppResources_es).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,14 +61,14 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Crowded Place Copyright (c) 2020
+        ///   Looks up a localized string similar to OnlineDemonstrator Авторские права (c) 2020
         ///            
-        ///*** END USER LICENSE AGREEMENT ***
-        ///            
-        ///IMPORTANT: PLEASE READ THIS LICENSE CAREFULLY BEFORE USING THIS SOFTWARE.
-        ///            
-        ///1. LICENSE
-        ///By receiving, opening the file package, and/or using Crowded Place (Software) containing this software, you agree that this End User User License Agreement (EULA) is a legally binding and valid contract and agree to be bound by it. You agree to abide by the intellectual property laws and all of the terms and con [rest of string was truncated]&quot;;.
+        ///*** ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ КОНЕЧНОГО ПОЛЬЗОВАТЕЛЯ***
+        ///
+        ///ВАЖНО: ПРОЧИТАЙТЕ ДАННОЕ СОГЛАШЕНИЕ ВНИМАТЕЛЬНО ПЕРЕД ИСПОЛЬЗОВАНИЕМ ONLINEDEMONSTRATOR.
+        ///        
+        ///1. ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ
+        ///Получая, открывая пакет файлов и / или используя OnlineDemonstrator (Программное обеспечение), содержащее это программное обеспечение, вы соглашаетесь с тем, что настоящее Лицензионное соглашение с конечным пользователем (EULA) является юридически обязывающим и действ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string License {
             get {
@@ -113,13 +113,11 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Privacy Policy
+        ///   Looks up a localized string similar to OnlineDemonstrator Политика конфеденциальности
         ///     
-        ///1. Your privacy is important to us. It is Crowded Placer&apos;s policy to respect your privacy regarding any information we may collect from you through our app, Crowded Place.
-        ///            
-        ///2. We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we&apos;re collecting it and how it will be used.
-        ///            
-        ///3. We only retain collected information for as long  [rest of string was truncated]&quot;;.
+        ///1. Ваша конфиденциальность важна для нас. Политика OnlineDemonstrator уважает вашу конфиденциальность в отношении любой информации, которую мы можем получить от вас через наше приложение OnlineDemonstrator.
+        ///                      
+        ///2. Мы запрашиваем личную информацию только тогда, когда она нам действительно необходима для предоставления вам услуг. Мы собираем его честными и законными способами, с вашего ведома и согласия. Мы также даем вам знать, почем [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PrivacyPolicy {
             get {
