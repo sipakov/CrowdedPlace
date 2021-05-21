@@ -113,13 +113,15 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Privacy Policy
-        ///     
-        ///1. Your privacy is important to us. It is Crowded Placer&apos;s policy to respect your privacy regarding any information we may collect from you through our app, Crowded Place.
-        ///            
-        ///2. We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we&apos;re collecting it and how it will be used.
-        ///            
-        ///3. We only retain collected information for as long  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Crowded Place Privacy policy
+        ///
+        ///1. Crowded Place does not ask for your e-mail address, phone number or any information about you other than the device id. However, even this information will be protected by commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use or alteration.
+        ///    
+        ///2. Crowded Place does not sell content.
+        ///
+        ///3. Crowded Place does not require registration.
+        ///
+        ///4. The security of your information will not be compromised (we do not shar [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PrivacyPolicy {
             get {

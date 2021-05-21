@@ -61,14 +61,14 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Crowded Place Copyright (c) 2020
+        ///   Looks up a localized string similar to Crowded Place Авторские права (c) 2020
         ///            
-        ///*** END USER LICENSE AGREEMENT ***
-        ///            
-        ///IMPORTANT: PLEASE READ THIS LICENSE CAREFULLY BEFORE USING THIS SOFTWARE.
-        ///            
-        ///1. LICENSE
-        ///By receiving, opening the file package, and/or using Crowded Place (Software) containing this software, you agree that this End User User License Agreement (EULA) is a legally binding and valid contract and agree to be bound by it. You agree to abide by the intellectual property laws and all of the terms and con [rest of string was truncated]&quot;;.
+        ///*** ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ КОНЕЧНОГО ПОЛЬЗОВАТЕЛЯ***
+        ///
+        ///ВАЖНО: ПРОЧИТАЙТЕ ДАННОЕ СОГЛАШЕНИЕ ВНИМАТЕЛЬНО ПЕРЕД ИСПОЛЬЗОВАНИЕМ Crowded Place.
+        ///        
+        ///1. ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ
+        ///Получая, открывая пакет файлов и / или используя Crowded Place (Программное обеспечение), содержащее это программное обеспечение, вы соглашаетесь с тем, что настоящее Лицензионное соглашение с конечным пользователем (EULA) является юридически обязывающим и действующим договором [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string License {
             get {
@@ -113,13 +113,15 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Privacy Policy
-        ///     
-        ///1. Your privacy is important to us. It is Crowded Placer&apos;s policy to respect your privacy regarding any information we may collect from you through our app, Crowded Place.
-        ///            
-        ///2. We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we&apos;re collecting it and how it will be used.
-        ///            
-        ///3. We only retain collected information for as long  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Crowded Place Политика конфеденциальности
+        ///
+        ///1. Crowded Place не запрашивает Ваш адрес электронной почты, телефон или какую нибудь информацию о Вас кроме id устройства. Однако, даже эта информация будет защищена с помощью коммерчески приемлемых средств для предотвращения потери и кражи, а также несанкционированного доступа, разглашения, копирования, использования или изменения.
+        ///    
+        ///2. Crowded Place не продает контент.
+        ///
+        ///3. Crowded Place не требует регистрации.
+        ///
+        ///4. Безопасность Вашей персональной инфор [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PrivacyPolicy {
             get {

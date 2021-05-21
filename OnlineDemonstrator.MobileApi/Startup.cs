@@ -69,7 +69,6 @@ namespace OnlineDemonstrator.MobileApi
             });
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseRequestLocalization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

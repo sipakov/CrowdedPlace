@@ -64,25 +64,27 @@ You agree that Stanislav Sipakov may collect and use information gathered in any
         </value>
     </data>
     <data name="PrivacyPolicy" xml:space="preserve">
-        <value> Privacy Policy
-     
-1. Your privacy is important to us. It is Crowded Placer's policy to respect your privacy regarding any information we may collect from you through our app, Crowded Place.
-            
-2. We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we're collecting it and how it will be used.
-            
-3. We only retain collected information for as long as necessary to provide you with your requested service. What data we store, we'll protect within commercially acceptable means to prevent loss and theft, as well as unauthorised access, disclosure, copying, use or modification.
-            
-4. We don't share any personally identifying information publicly or with third-parties, except when required to by law.
-            
-5. Our app may link to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.
-            
-6. You are free to refuse our request for your personal information, with the understanding that we may be unable to provide you with some of your desired services.
-            
-7. Your continued use of our website or mobile app will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to contact us.
-            
-8. App age limit: 18 years old or legal age in accordance with local law.
-            
-9. This policy is effective as of 3 May 2020.
+        <value>Crowded Place Privacy policy
+
+1. Crowded Place does not ask for your e-mail address, phone number or any information about you other than the device id. However, even this information will be protected by commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use or alteration.
+    
+2. Crowded Place does not sell content.
+
+3. Crowded Place does not require registration.
+
+4. The security of your information will not be compromised (we do not share any information publicly or to third parties, except when required by law).
+
+5. Crowded Place does not request information about a new one through our mobile app.
+
+6. Crowded Place does not send email newsletters.
+
+7. Crowded Place may link to external sites that we do not control. Please note that we do not control the content and security practices of these sites and cannot be held responsible for their respective privacy policies.
+
+8. Your continued use of Crowded Place will be deemed your acceptance of our privacy policy. If you have any questions about how we process user data, do not hesitate to contact us.
+                        
+9. Age restriction: 18 years old or majority according to local laws.
+
+10. This policy is effective from May 21, 2021.
         </value>
     </data>
     <data name="LookAtTheNewDemonstrationPush" xml:space="preserve">
