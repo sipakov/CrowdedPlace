@@ -42,5 +42,16 @@ namespace OnlineDemonstrator.MobileApi.Controllers
 
             return await _deviceService.ShareAsync(deviceIn);
         }
+        
+        [HttpGet("getMetaDataApp")]
+        public ActionResult<MetaDataOut> GetActualLinkToTheApp()
+        {
+            var metaData = new MetaDataOut
+            {
+                LinkToAppStore = "https://apps.apple.com/ru/app/online-demonstrator/id1511424258"
+            };
+           
+            return metaData;
+        }
     }
 }
