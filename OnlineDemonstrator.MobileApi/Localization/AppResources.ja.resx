@@ -19,13 +19,13 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="LicenseIsNotAccepted" xml:space="preserve">
-        <value>Вы не приняли условия лицензии</value>
+        <value>ライセンスは受け入れられませんでした</value>
     </data>
     <data name="ReportIsAlreadyAComplaint" xml:space="preserve">
-    <value>Жалоба уже была зарегистрирована ранее</value>
+        <value>苦情はすでに登録されています</value>
     </data>
     <data name="PosterConstraint" xml:space="preserve">
-    <value>Вы не можете добавить более одного активного плаката (плакат действителен одну неделю с дня создания)</value>
+        <value>現在のデモでは、アクティブなバナーを複数追加することはできません（デモが作成または再開された日から1週間）</value>
     </data>
     <data name="License" xml:space="preserve">
         <value>Crowded Place Copyright (c) 2020
@@ -88,9 +88,9 @@ You agree that Stanislav Sipakov may collect and use information gathered in any
         </value>
     </data>
     <data name="LookAtTheNewDemonstrationPush" xml:space="preserve">
-        <value> Новый митинг</value>
+        <value>新しいデモンストレーションを見てください</value>
     </data>
     <data name="NewPosterPush" xml:space="preserve">
-        <value>Новый плакат в вашем митинге</value>
+        <value>デモの新しいポスター</value>
     </data>
 </root>

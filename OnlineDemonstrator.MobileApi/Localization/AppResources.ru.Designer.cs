@@ -61,14 +61,14 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Crowded Place Авторские права (c) 2020
+        ///   Looks up a localized string similar to Crowded Place Copyright (c) 2020
         ///            
-        ///*** ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ КОНЕЧНОГО ПОЛЬЗОВАТЕЛЯ***
-        ///
-        ///ВАЖНО: ПРОЧИТАЙТЕ ДАННОЕ СОГЛАШЕНИЕ ВНИМАТЕЛЬНО ПЕРЕД ИСПОЛЬЗОВАНИЕМ Crowded Place.
-        ///        
-        ///1. ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ
-        ///Получая, открывая пакет файлов и / или используя Crowded Place (Программное обеспечение), содержащее это программное обеспечение, вы соглашаетесь с тем, что настоящее Лицензионное соглашение с конечным пользователем (EULA) является юридически обязывающим и действующим договором [rest of string was truncated]&quot;;.
+        ///*** END USER LICENSE AGREEMENT ***
+        ///            
+        ///IMPORTANT: PLEASE READ THIS LICENSE CAREFULLY BEFORE USING THIS SOFTWARE.
+        ///            
+        ///1. LICENSE
+        ///By receiving, opening the file package, and/or using Crowded Place (Software) containing this software, you agree that this End User User License Agreement (EULA) is a legally binding and valid contract and agree to be bound by it. You agree to abide by the intellectual property laws and all of the terms and con [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string License {
             get {
@@ -77,7 +77,7 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы не приняли условия лицензии.
+        ///   Looks up a localized string similar to No ha aceptado los términos de la licencia.
         /// </summary>
         internal static string LicenseIsNotAccepted {
             get {
@@ -86,7 +86,7 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Новый митинг.
+        ///   Looks up a localized string similar to Nueva reunión.
         /// </summary>
         internal static string LookAtTheNewDemonstrationPush {
             get {
@@ -95,7 +95,7 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Новый плакат в вашем митинге.
+        ///   Looks up a localized string similar to Una pancarta nueva en tu reunión.
         /// </summary>
         internal static string NewPosterPush {
             get {
@@ -104,7 +104,7 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы не можете добавить более одного активного плаката (плакат действителен одну неделю с дня создания).
+        ///   Looks up a localized string similar to No se puede agregar más de una pancarta activa (la pancarta esta válida durante una semana a partir de la fecha de creación).
         /// </summary>
         internal static string PosterConstraint {
             get {
@@ -113,15 +113,15 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Crowded Place Политика конфеденциальности
+        ///   Looks up a localized string similar to Crowded Place Privacy policy
         ///
-        ///1. Crowded Place не запрашивает Ваш адрес электронной почты, телефон или какую нибудь информацию о Вас кроме id устройства. Однако, даже эта информация будет защищена с помощью коммерчески приемлемых средств для предотвращения потери и кражи, а также несанкционированного доступа, разглашения, копирования, использования или изменения.
+        ///1. Crowded Place does not ask for your e-mail address, phone number or any information about you other than the device id. However, even this information will be protected by commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use or alteration.
         ///    
-        ///2. Crowded Place не продает контент.
+        ///2. Crowded Place does not sell content.
         ///
-        ///3. Crowded Place не требует регистрации.
+        ///3. Crowded Place does not require registration.
         ///
-        ///4. Безопасность Вашей персональной инфор [rest of string was truncated]&quot;;.
+        ///4. The security of your information will not be compromised (we do not shar [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PrivacyPolicy {
             get {
@@ -130,7 +130,7 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Жалоба уже была зарегистрирована ранее.
+        ///   Looks up a localized string similar to La queja ha sido registrada antes.
         /// </summary>
         internal static string ReportIsAlreadyAComplaint {
             get {
