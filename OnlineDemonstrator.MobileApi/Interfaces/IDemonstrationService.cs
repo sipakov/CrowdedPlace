@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OnlineDemonstrator.EfCli;
 using OnlineDemonstrator.Libraries.Domain.Dto;
 using OnlineDemonstrator.Libraries.Domain.Entities;
-using OnlineDemonstrator.Libraries.Domain.Models;
 
 namespace OnlineDemonstrator.MobileApi.Interfaces
 {

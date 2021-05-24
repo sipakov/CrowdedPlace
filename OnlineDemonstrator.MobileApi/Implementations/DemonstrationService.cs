@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -61,8 +62,8 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 Latitude = latitude,
                 Longitude = longitude,
                 CountryName = countryName,
-                CityName = string.IsNullOrEmpty(cityName) ? latitude.ToString() : cityName,
-                AreaName = string.IsNullOrEmpty(areaName) ? longitude.ToString() : areaName
+                CityName = string.IsNullOrEmpty(cityName) ? latitude.ToString(CultureInfo.InvariantCulture) : cityName,
+                AreaName = string.IsNullOrEmpty(areaName) ? longitude.ToString(CultureInfo.InvariantCulture) : areaName
             };
 
             var demonstrationEntity = await context.Demonstrations.AddAsync(newDemonstration);

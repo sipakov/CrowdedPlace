@@ -16,7 +16,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
 
         public ReverseGeoCodingPlaceGetter(IConfiguration config)
         {
-            _config = config;
+            _config = config ?? throw new ArgumentNullException(nameof(config));
         }
         
         public async Task<Address> GetAddressByGeoPosition(double latitude, double longitude, string locale)

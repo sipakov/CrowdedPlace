@@ -1,5 +1,3 @@
-using OnlineDemonstrator.MobileApi.Models;
-
 namespace OnlineDemonstrator.MobileApi.Interfaces
 {
     public interface IDistanceCalculator
