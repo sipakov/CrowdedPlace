@@ -34,5 +34,13 @@ namespace OnlineDemonstrator.MobileApi.Controllers
 
             return await _deviceService.GetAsync(deviceIn);
         }
+        
+        [HttpGet("share")]
+        public async Task<ActionResult<BaseResult>> ShareAsync([FromQuery, Required] string deviceIn)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            return await _deviceService.ShareAsync(deviceIn);
+        }
     }
 }

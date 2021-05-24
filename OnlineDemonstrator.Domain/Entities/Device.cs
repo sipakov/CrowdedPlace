@@ -20,6 +20,8 @@ namespace OnlineDemonstrator.Libraries.Domain.Entities
 
         public string Locale { get; set; }
 
+        public int SharedCount { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public bool IsBanned { get; set; }

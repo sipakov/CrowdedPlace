@@ -12,5 +12,7 @@ namespace OnlineDemonstrator.MobileApi.Interfaces
         Task<BaseResult> AddAsync(DeviceIn deviceIn);
 
         Task<Device> GetAsync([FromBody, Required] DeviceIn deviceIn);
+        
+        Task<BaseResult> ShareAsync([FromQuery, Required] string deviceIn);
     }
 }

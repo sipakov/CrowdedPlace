@@ -64,5 +64,22 @@ namespace OnlineDemonstrator.MobileApi.Implementations
 
             return targetDevice;
         }
+
+        public async Task<BaseResult> ShareAsync(string deviceIn)
+        {
+            if (string.IsNullOrEmpty(deviceIn)) throw new ArgumentNullException(nameof(deviceIn));  
+            
+            await using var context = _contextFactory.CreateContext();
+
+            var targetDevice = await context.Devices.FirstOrDefaultAsync(x => x.Id == deviceIn);
+            if (targetDevice == null)
+            {
+                throw new ArgumentNullException(nameof(deviceIn));      
+            }
+
+            targetDevice.SharedCount += 1;
+            await context.SaveChangesAsync();
+            return new BaseResult();
+        }
     }
 }
