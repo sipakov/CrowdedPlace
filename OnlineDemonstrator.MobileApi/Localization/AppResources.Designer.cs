@@ -86,16 +86,16 @@ namespace OnlineDemonstrator.MobileApi.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Look at the new demonstration.
+        ///   Looks up a localized string similar to New demonstration.
         /// </summary>
-        internal static string LookAtTheNewDemonstrationPush {
+        internal static string NewDemonstrationPush {
             get {
-                return ResourceManager.GetString("LookAtTheNewDemonstrationPush", resourceCulture);
+                return ResourceManager.GetString("NewDemonstrationPush", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New poster in your demo.
+        ///   Looks up a localized string similar to New poster.
         /// </summary>
         internal static string NewPosterPush {
             get {

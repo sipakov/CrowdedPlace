@@ -87,10 +87,10 @@ You agree that Stanislav Sipakov may collect and use information gathered in any
 10. This policy is effective from May 21, 2021.
         </value>
     </data>
-    <data name="LookAtTheNewDemonstrationPush" xml:space="preserve">
-        <value>新しいデモンストレーションを見てください</value>
-    </data>
     <data name="NewPosterPush" xml:space="preserve">
         <value>デモの新しいポスター</value>
+    </data>
+    <data name="NewDemonstrationPush" xml:space="preserve">
+        <value>新しいデモンストレーションを見てください</value>
     </data>
 </root>

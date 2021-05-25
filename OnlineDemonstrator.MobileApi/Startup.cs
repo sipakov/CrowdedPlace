@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Localization;
 using OnlineDemonstrator.EfCli;
 using OnlineDemonstrator.MobileApi.CustomExceptionMiddleware.Extensions;
 using OnlineDemonstrator.MobileApi.Implementations;
 using OnlineDemonstrator.MobileApi.Interfaces;
+using OnlineDemonstrator.MobileApi.Localization;
 
 namespace OnlineDemonstrator.MobileApi
 {
@@ -28,6 +30,7 @@ namespace OnlineDemonstrator.MobileApi
             services.TryAddTransient<IObjectionableReasonService, ObjectionableReasonService>();
             services.TryAddTransient<IReverseGeoCodingPlaceGetter, ReverseGeoCodingPlaceGetter>();
             services.TryAddTransient<IPushNotifier, PushNotifier>();
+            services.AddTransient<IStringLocalizer, CustomStringLocalizer>();
             
             var supportedCultures = new[]
             {

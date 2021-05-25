@@ -87,10 +87,10 @@ Crowded Place содержит материалы, защищенные авто
 10. Эта политика действует с 21 мая 2021 года.
         </value>
     </data>
-    <data name="LookAtTheNewDemonstrationPush" xml:space="preserve">
-        <value> Новый митинг</value>
-    </data>
     <data name="NewPosterPush" xml:space="preserve">
         <value>Новый плакат в вашем митинге</value>
+    </data>
+    <data name="NewDemonstrationPush" xml:space="preserve">
+        <value>Новый митинг</value>
     </data>
 </root>

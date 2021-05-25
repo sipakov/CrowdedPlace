@@ -51,5 +51,19 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             const string url = "https://fcm.googleapis.com/fcm/send";
             _ = await httpClient.PostAsync(url, httpContent);
         }
+        
+        public async Task SendPushNotifications(Push pushNotification)
+        {
+            await using var context = _contextFactory.CreateContext();
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var fcmToken = _config.GetSection("KeyApiGoogleNotifications").Value;
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fcmToken);
+            
+            var content = JsonConvert.SerializeObject(pushNotification);
+            HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+            const string url = "https://fcm.googleapis.com/fcm/send";
+            _ = await httpClient.PostAsync(url, httpContent);
+        }
     }
 }
