@@ -125,9 +125,18 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 var posterEntity = await context.Posters.AddAsync(newPoster);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
-
-                var targetCountry = newDemonstration.AreaName;
-                var areaArray = newDemonstration.AreaName.Split(",").ToList();
+                var targetCountry = string.Empty;
+                List<string> areaArray;
+                if (newDemonstration.AreaName == null)
+                {
+                    areaArray = (await context.Demonstrations.FirstAsync(
+                        x => x.Id == posterEntity.Entity.DemonstrationId)).AreaName.Split(",").ToList();
+                }
+                else
+                {
+                    areaArray = newDemonstration.AreaName.Split(",").ToList();  
+                }
+                
                 if (areaArray.Any())
                 {
                     targetCountry = areaArray.Last().Trim();
@@ -144,15 +153,11 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                         .Where(x => !x.IsNotSendNotifications && !string.IsNullOrEmpty(x.FcmToken) && x.Id != posterIn.DeviceId).ToDictionaryAsync(x => x.FcmToken, y => y.Locale);
                 
                     var body = posterEntity.Entity.Title;
-                    var localizedPushes = GenerateLocalizedPushes(fcmTokensToLocale, "NewPosterPush", body, targetCountry);
+                    var localizedPushes = GenerateLocalizedPushes(fcmTokensToLocale, "NewDemonstrationPush", body, targetCountry);
                     foreach (var localizedPush in localizedPushes)
                     {
                         Task.Run(async () => await _pushNotifier.SendPushNotifications(localizedPush));  
                     }
-                    // var targetFcmTokens = context.Devices.Where(x => !x.IsNotSendNotifications && !string.IsNullOrEmpty(x.FcmToken) && x.Id != posterIn.DeviceId).Select(x => x.FcmToken).ToList();
-                    // var targetTitle = $"{_stringLocalizer["LookAtTheNewDemonstrationPush"]} ({targetCountry})";
-                    // var targetMessage = posterEntity.Entity.Title;
-                    // Task.Run(async ()=> await _pushNotifier.SendPushNotifications(targetTitle, targetMessage, targetFcmTokens));
                 }
                 else
                 {
@@ -164,11 +169,6 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                     {
                         Task.Run(async () => await _pushNotifier.SendPushNotifications(localizedPush));  
                     }
-                    // var targetFcmTokens = context.Posters.Include(x => x.Device)
-                    //     .Where(x => x.DemonstrationId == newPoster.DemonstrationId && x.DeviceId != posterIn.DeviceId).Select(x => x.Device.FcmToken).ToList();
-                    // var targetTitle = $"{_stringLocalizer["NewPosterPush"]})";
-                    // var targetMessage = posterEntity.Entity.Title;
-                    // Task.Run(async ()=> await _pushNotifier.SendPushNotifications(targetTitle, targetMessage, targetFcmTokens));
                 }
                 return posterEntity.Entity; 
             }
@@ -308,6 +308,11 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 if (areaArray.Any())
                 {
                     targetCountry = areaArray.Last().Trim();
+                    var isNumeric = int.TryParse(targetCountry, out var targetCountryStr);
+                    if (isNumeric && areaArray.Count > 1)
+                    {
+                        targetCountry = areaArray[^2].Trim();
+                    }
                 }
                 
                 var fcmTokensToLocale = await context.Posters.Include(x => x.Device)
@@ -319,12 +324,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 {
                     Task.Run(async () => await _pushNotifier.SendPushNotifications(localizedPush));  
                 }
-                // var targetFcmTokens = context.Posters.Include(x => x.Device)
-                //     .Where(x => x.DemonstrationId == newPoster.DemonstrationId && x.DeviceId != posterIn.DeviceId).Select(x => x.Device.FcmToken).ToList();
-                // var targetTitle = $"{_stringLocalizer["NewPosterPush"]} ({targetCountry})";
-                // var targetMessage = posterEntity.Entity.Title;
-                // Task.Run(async () => await _pushNotifier.SendPushNotifications(targetTitle, targetMessage, targetFcmTokens));
-                
+
                 return posterEntity.Entity;
             }
             catch (Exception ex)
@@ -394,6 +394,11 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 if (areaArray.Any())
                 {
                     targetCountry = areaArray.Last().Trim();
+                    var isNumeric = int.TryParse(targetCountry, out var targetCountryStr);
+                    if (isNumeric && areaArray.Count > 1)
+                    {
+                        targetCountry = areaArray[^2].Trim();
+                    }
                 }
                 
                 var fcmTokensToLocale = await context.Posters.Include(x => x.Device)
@@ -405,13 +410,6 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 {
                    Task.Run(async () => await _pushNotifier.SendPushNotifications(localizedPush));  
                 }
-                
-                
-                // var targetFcmTokens = context.Posters.Include(x => x.Device)
-                //     .Where(x => x.DemonstrationId == newPoster.DemonstrationId && x.DeviceId != posterIn.DeviceId).Select(x => x.Device.FcmToken).ToList();
-                // var targetTitle = $"{_stringLocalizer["NewPosterPush"]} ({targetCountry})";
-                // var targetMessage = posterEntity.Entity.Title;
-                // Task.Run(async () => await _pushNotifier.SendPushNotifications(targetTitle, targetMessage, targetFcmTokens));
 
                 return posterEntity.Entity;
             }

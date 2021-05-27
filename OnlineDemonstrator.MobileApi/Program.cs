@@ -11,20 +11,20 @@ namespace OnlineDemonstrator.MobileApi
     {
         public static void Main(string[] args)
         {
-            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+           // var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
                 CreateHostBuilder(args).Build().Run();
-                logger.Debug("init main");
+          //      logger.Debug("init main");
             }
             catch (Exception exception)
             {
-                logger.Error(exception, "Stopped program because of exception");
+           //     logger.Error(exception, "Stopped program because of exception");
                 throw;
             }
             finally
             {
-                NLog.LogManager.Shutdown();
+         //       NLog.LogManager.Shutdown();
             }
         }
 
@@ -33,12 +33,13 @@ namespace OnlineDemonstrator.MobileApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.ConfigureKestrel(serverOptions => { serverOptions.Listen(IPAddress.Loopback, 5100); })
-                        .UseStartup<Startup>().ConfigureLogging(logging =>
-                        {
-                            logging.ClearProviders();
-                            logging.SetMinimumLevel(LogLevel.Trace);
-                        })
-                        .UseNLog();
+                        .UseStartup<Startup>();
+                    // .ConfigureLogging(logging =>
+                    // {
+                    //     logging.ClearProviders();
+                    //     logging.SetMinimumLevel(LogLevel.Trace);
+                    // })
+                    // .UseNLog();
                 });
     }
 }
