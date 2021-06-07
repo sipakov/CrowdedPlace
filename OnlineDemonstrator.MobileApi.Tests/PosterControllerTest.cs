@@ -40,15 +40,15 @@ namespace OnlineDemonstrator.MobileApi.Tests
             context.Demonstrations.Add(demonstration2);
             context.Demonstrations.Add(demonstration3);
             context.SaveChanges();
-            var device1Id = Guid.NewGuid();
-            var device2Id = Guid.NewGuid();
-            var device3Id = Guid.NewGuid();
-            var device4Id = Guid.NewGuid();
-            var device5Id = Guid.NewGuid();
-            var device6Id = Guid.NewGuid();
-            var device7Id = Guid.NewGuid();
-            var device8Id = Guid.NewGuid();
-            var device9Id = Guid.NewGuid();
+            var device1Id = Guid.NewGuid().ToString();
+            var device2Id = Guid.NewGuid().ToString();
+            var device3Id = Guid.NewGuid().ToString();
+            var device4Id = Guid.NewGuid().ToString();
+            var device5Id = Guid.NewGuid().ToString();
+            var device6Id = Guid.NewGuid().ToString();
+            var device7Id = Guid.NewGuid().ToString();
+            var device8Id = Guid.NewGuid().ToString();
+            var device9Id = Guid.NewGuid().ToString();
             var listDevices = new List<Device>();
             var device1 = new Device
             {
@@ -191,7 +191,7 @@ namespace OnlineDemonstrator.MobileApi.Tests
                 .Options;
             var context = new ApplicationContextFactory(options).CreateContext();
             
-            var device1Id = Guid.NewGuid();
+            var device1Id = Guid.NewGuid().ToString();
             var poster = new PosterIn
             {
                 DeviceId = device1Id,
