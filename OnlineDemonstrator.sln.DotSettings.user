@@ -1,4 +1,9 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=231070b4_002D81af_002D4cf1_002Dbd40_002Dba0f625be2c0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GenerateLocalizedPushesTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::EC0A643A-4690-4894-916A-5EBABBAC1946::.NETCoreApp,Version=v3.1::OnlineDemonstrator.MobileApi.Tests.LocalizationTests.String_Localization_Test&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b7c25579_002D7dad_002D474f_002Dace2_002Da0aa2db24970/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Find_target_posters" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::EC0A643A-4690-4894-916A-5EBABBAC1946::.NETCoreApp,Version=v3.1::OnlineDemonstrator.MobileApi.Tests.PosterControllerTest&lt;/TestId&gt;&#xD;
