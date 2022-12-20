@@ -1,5 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=231070b4_002D81af_002D4cf1_002Dbd40_002Dba0f625be2c0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GenerateLocalizedPushesTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=231070b4_002D81af_002D4cf1_002Dbd40_002Dba0f625be2c0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GenerateLocalizedPushesTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::EC0A643A-4690-4894-916A-5EBABBAC1946::.NETCoreApp,Version=v3.1::OnlineDemonstrator.MobileApi.Tests.LocalizationTests.String_Localization_Test&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
@@ -9,9 +9,10 @@
     &lt;TestId&gt;NUnit3x::EC0A643A-4690-4894-916A-5EBABBAC1946::.NETCoreApp,Version=v3.1::OnlineDemonstrator.MobileApi.Tests.PosterControllerTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d043095d_002D7f19_002D44f5_002Db81f_002D7dafea76d4c6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Find_target_posters #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d043095d_002D7f19_002D44f5_002Db81f_002D7dafea76d4c6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Find_target_posters #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::EC0A643A-4690-4894-916A-5EBABBAC1946::.NETCoreApp,Version=v3.1::OnlineDemonstrator.MobileApi.Tests.PosterControllerTest.Find_target_posters&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::EC0A643A-4690-4894-916A-5EBABBAC1946::net6.0::OnlineDemonstrator.MobileApi.Tests.LocalizationTests.String_Localization_Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::EC0A643A-4690-4894-916A-5EBABBAC1946::net6.0::OnlineDemonstrator.MobileApi.Tests.LocalizationTests.GenerateLocalizedPushes_Test&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=OnlineDemonstrator_002EMobileApi_002FLocalization_002FAppResources/@EntryIndexedValue">True</s:Boolean>

@@ -1,8 +1,13 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
+using Moq;
 using NUnit.Framework;
+using OnlineDemonstrator.EfCli;
+using OnlineDemonstrator.MobileApi.Implementations;
+using OnlineDemonstrator.MobileApi.Interfaces;
 
 namespace OnlineDemonstrator.MobileApi.Tests
 {
@@ -20,11 +25,37 @@ namespace OnlineDemonstrator.MobileApi.Tests
             const string expectedValueEn = "New poster";
             const string targetLocaleEn = "en";
 
-            var actualValueRu = stringLocalizer.WithCulture(new CultureInfo(targetLocaleRu))["NewPosterPush"].Value;
-            var actualValueEn = stringLocalizer.WithCulture(new CultureInfo(targetLocaleEn))["NewPosterPush"].Value;
+           var actualValueRu = Extensions.LocalizationExtension.GetString(stringLocalizer, targetLocaleRu, "NewPosterPush").Value;
+           var actualValueEn = Extensions.LocalizationExtension.GetString(stringLocalizer, targetLocaleEn, "NewPosterPush").Value;
 
-            Assert.AreEqual(expectedValueRu, actualValueRu);
             Assert.AreEqual(expectedValueEn, actualValueEn);
+            Assert.AreEqual(expectedValueRu, actualValueRu);
         }
+
+        [Test]
+        public void GenerateLocalizedPushes_Test()
+        {
+            var options = Options.Create(new LocalizationOptions {ResourcesPath = "Localization"});
+            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
+            var postService = new PosterService(new Mock<IContextFactory<ApplicationContext>>().Object, new Mock<IDemonstrationService>().Object,
+                new Mock<IDistanceCalculator>().Object, new StringLocalizer<AppResources>(factory), new Mock<IReverseGeoCodingPlaceGetter>().Object,
+                new Mock<IPushNotifier>().Object);
+
+            var fcmTokensToLocale = new Dictionary<string, string>();
+            fcmTokensToLocale.Add("test_token1", "ru");
+            fcmTokensToLocale.Add("test_token2", "en");
+
+            const string expectedValueRu = "Новый плакат в вашем митинге (India)";
+            const string expectedValueEn = "New poster (India)";
+
+            var pushes = postService.GenerateLocalizedPushes(fcmTokensToLocale, "NewPosterPush", "test_body", "India").ToList();
+            
+            var actualValueRu = pushes[0].notification.title;
+            var actualValueEn = pushes[1].notification.title;
+            
+            Assert.AreEqual(expectedValueRu, actualValueRu);
+            Assert.AreEqual(expectedValueEn, actualValueEn);   
+        }
+        
     }
 }

@@ -1,4 +1,3 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using OnlineDemonstrator.MobileApi.Models;
@@ -9,17 +8,14 @@ namespace OnlineDemonstrator.MobileApi.Controllers
     public class MetadataController : ControllerBase
     {
         private readonly IStringLocalizer<AppResources> _stringLocalizer;
-        private readonly IStringLocalizer _stringLocalizer1;
-        public MetadataController(IStringLocalizer<AppResources> stringLocalizer, IStringLocalizer stringLocalizer1)
+        public MetadataController(IStringLocalizer<AppResources> stringLocalizer)
         {
             _stringLocalizer = stringLocalizer;
-            _stringLocalizer1 = stringLocalizer1;
         }
 
         [HttpGet("getLicense")]
         public ActionResult<Metadata> GetLicense()
         {
-            var z = _stringLocalizer.WithCulture(new CultureInfo("es"))["NewDemonstrationPush"];
             var metadata = new Metadata
             {
                 Value = _stringLocalizer["License"]

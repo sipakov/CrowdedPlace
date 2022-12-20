@@ -424,7 +424,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             }
         }
 
-        private IEnumerable<Push> GenerateLocalizedPushes(Dictionary<string, string> fcmTokensToLocale, string localeKey, string body, string country)
+        public IEnumerable<Push> GenerateLocalizedPushes(Dictionary<string, string> fcmTokensToLocale, string localeKey, string body, string country)
         {
             var groupedByLocales = fcmTokensToLocale.GroupBy(x => x.Value);
 
@@ -436,7 +436,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                     registration_ids = new List<string>(),
                     notification = new Notification
                     {
-                        title = $"{_stringLocalizer.WithCulture(new CultureInfo(targetLocale))[localeKey]} ({country})",
+                        title =$"{Extensions.LocalizationExtension.GetString(_stringLocalizer, targetLocale, "NewPosterPush").Value} ({country})",
                         body = body,
                         content_available = true,
                         priority = "high",
