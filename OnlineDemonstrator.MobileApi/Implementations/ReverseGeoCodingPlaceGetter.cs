@@ -19,6 +19,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             _config = config ?? throw new ArgumentNullException(nameof(config));
         }
         
+        [Obsolete("Obsolete")]
         public async Task<Address> GetAddressByGeoPosition(double latitude, double longitude, string locale)
         {
             var key = _config.GetSection("KeyApiGoogle").Value;
