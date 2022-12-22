@@ -4,6 +4,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using Serilog.Events;
+using TelegramSink;
 
 namespace OnlineDemonstrator.MobileApi
 {
@@ -24,6 +26,7 @@ namespace OnlineDemonstrator.MobileApi
                 .Enrich.WithMachineName()
                 .Enrich.WithProperty("App", "crowded-place")
                 .WriteTo.Console()
+                .WriteTo.TeleSink(telegramApiKey:"",telegramChatId: "", minimumLevel:LogEventLevel.Information)
                 .WriteTo.File(pathToLog, rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true, fileSizeLimitBytes: 104857600, retainedFileCountLimit: 31);
             
             Log.Logger = configuration.CreateLogger();
