@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
@@ -64,6 +65,7 @@ namespace OnlineDemonstrator.MobileApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             app.UseRequestLocalization();
             app.UseCustomExceptionMiddleware();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
