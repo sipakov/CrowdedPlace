@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Amver.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using Npgsql;
 using OnlineDemonstrator.EfCli;
 using OnlineDemonstrator.Libraries.Domain.Dto;
@@ -26,9 +26,10 @@ namespace OnlineDemonstrator.MobileApi.Implementations
         private readonly IStringLocalizer<AppResources> _stringLocalizer;
         private readonly IReverseGeoCodingPlaceGetter _reverseGeoCodingPlaceGetter;
         private readonly IPushNotifier _pushNotifier;
+        private readonly ILogger<PosterService> _logger;
 
         public PosterService(IContextFactory<ApplicationContext> contextFactory,
-            IDemonstrationService demonstrationService, IDistanceCalculator distanceCalculator, IStringLocalizer<AppResources> stringLocalizer, IReverseGeoCodingPlaceGetter reverseGeoCodingPlaceGetter, IPushNotifier pushNotifier)
+            IDemonstrationService demonstrationService, IDistanceCalculator distanceCalculator, IStringLocalizer<AppResources> stringLocalizer, IReverseGeoCodingPlaceGetter reverseGeoCodingPlaceGetter, IPushNotifier pushNotifier, ILogger<PosterService> logger)
         {
             _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
             _demonstrationService =
@@ -37,6 +38,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
             _stringLocalizer = stringLocalizer ?? throw new ArgumentNullException(nameof(stringLocalizer));
             _reverseGeoCodingPlaceGetter = reverseGeoCodingPlaceGetter ?? throw new ArgumentNullException(nameof(reverseGeoCodingPlaceGetter));
             _pushNotifier = pushNotifier ?? throw new ArgumentNullException(nameof(pushNotifier));
+            _logger = logger;
         }
 
         public async Task<Poster> AddPosterAsync(PosterIn posterIn, DateTime currentDateTime)
@@ -125,6 +127,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 var posterEntity = await context.Posters.AddAsync(newPoster);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
+                _logger.LogInformation($"New demonstration: {device.Id} added poster to new demonstration");
                 var targetCountry = string.Empty;
                 List<string> areaArray;
                 if (newDemonstration.AreaName == null)
@@ -324,7 +327,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 {
                     Task.Run(async () => await _pushNotifier.SendPushNotifications(localizedPush));  
                 }
-
+                _logger.LogInformation($"New poster in exist demonstration {posterIn.DemonstrationId}: {posterIn.DeviceId} added poster");
                 return posterEntity.Entity;
             }
             catch (Exception ex)
@@ -410,7 +413,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 {
                    Task.Run(async () => await _pushNotifier.SendPushNotifications(localizedPush));  
                 }
-
+                _logger.LogInformation($"New poster in expire demonstration {posterIn.DemonstrationId}: {posterIn.DeviceId} added poster");
                 return posterEntity.Entity;
             }
             catch (Exception ex)
