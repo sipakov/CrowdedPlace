@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using OnlineDemonstrator.EfCli;
 using OnlineDemonstrator.Libraries.Domain.Dto;
 using OnlineDemonstrator.Libraries.Domain.Entities;
@@ -15,10 +16,12 @@ namespace OnlineDemonstrator.MobileApi.Implementations
     public class DeviceService : IDeviceService
     {
         private readonly IContextFactory<ApplicationContext> _contextFactory;
+        private readonly ILogger<DeviceService> _logger;
 
-        public DeviceService(IContextFactory<ApplicationContext> contextFactory)
+        public DeviceService(IContextFactory<ApplicationContext> contextFactory, ILogger<DeviceService> logger)
         {
-            _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
+            _contextFactory = contextFactory;
+            _logger = logger;
         }
 
         public async Task<BaseResult> AddAsync([FromBody, Required] DeviceIn deviceIn)
@@ -36,6 +39,7 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 targetDevice.LastVisitDate = DateTime.UtcNow;
                 targetDevice.Locale = deviceIn.Locale;
                 await context.SaveChangesAsync();
+                _logger.LogInformation($"Login: {deviceIn.DeviceId} with locale {deviceIn.Locale}");
             }
             else
             {
@@ -50,7 +54,9 @@ namespace OnlineDemonstrator.MobileApi.Implementations
                 };
                 await context.Devices.AddAsync(device);
                 await context.SaveChangesAsync();  
+                _logger.LogInformation($"Registration: {deviceIn.DeviceId} with locale {deviceIn.Locale}");
             }
+            
             return new BaseResult();
         }
 

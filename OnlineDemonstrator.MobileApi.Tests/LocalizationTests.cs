@@ -39,7 +39,7 @@ namespace OnlineDemonstrator.MobileApi.Tests
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
             var postService = new PosterService(new Mock<IContextFactory<ApplicationContext>>().Object, new Mock<IDemonstrationService>().Object,
                 new Mock<IDistanceCalculator>().Object, new StringLocalizer<AppResources>(factory), new Mock<IReverseGeoCodingPlaceGetter>().Object,
-                new Mock<IPushNotifier>().Object);
+                new Mock<IPushNotifier>().Object, new NullLogger<PosterService>());
 
             var fcmTokensToLocale = new Dictionary<string, string>();
             fcmTokensToLocale.Add("test_token1", "ru");
