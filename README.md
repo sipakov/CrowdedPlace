@@ -1,4 +1,4 @@
-# OnlineDemonstrator
+# CrowdedPlace
  Look for and take part in demonstrations
  
  Take part in demonstrations, pickets, protests and express your position without leaving your home. You may not want to go to the demonstration because of viruses, police, crowds, or you just don't have enough time. Just pick up the phone and create a virtual banner. Be the first in the central square in your city, near your employer's small office or in the middle of the field. Find out where else there are demonstrations in the world, how many people they gather and what drives people.
